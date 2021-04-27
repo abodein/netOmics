@@ -2,9 +2,9 @@
 #' 
 #' A more detailed description
 #' 
-#' @param X
-#' @param cluster
-#' @param method
+#' @param X gene expression matrix/data.frame
+#' @param cluster optional, clustering result from timeOmics::getCluster
+#' @param method network building method, one of c('aracne')
 #' 
 #' @examples
 #' data(HeLa)
@@ -61,7 +61,7 @@ get_grn <- function(X, cluster=NULL, method = c("aracne")){
             res[[i]] <- grn.graph.cluster
 
         }
-        class(res) <- "grn"
+        class(res) <- c("grn", "igraph")
     return(res)
     }
 }

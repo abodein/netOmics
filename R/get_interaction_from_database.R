@@ -15,6 +15,8 @@
 #' X <- V(db)$name[1:10]
 #' biogrid.res <- get_interaction_from_database(X, db, type = "db", user.ego = FALSE)
 
+#' @importFrom purrr is_empty map reduce
+#' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices
 #' @export
 get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) {
     # check db
@@ -54,7 +56,3 @@ get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) 
     class(db.subgraph) <- c("interaction.igraph", "igraph")
     return(db.subgraph)
 }
-
-
-
-# define a graph object

@@ -7,7 +7,11 @@
 get_grn(X, cluster = NULL, method = c("aracne"))
 }
 \arguments{
-\item{method}{}
+\item{X}{gene expression matrix/data.frame}
+
+\item{cluster}{optional, clustering result from timeOmics::getCluster}
+
+\item{method}{network building method, one of c('aracne')}
 }
 \description{
 A more detailed description
