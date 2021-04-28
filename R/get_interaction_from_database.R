@@ -14,6 +14,9 @@
 #' db <- BIOGRID
 #' X <- V(db)$name[1:10]
 #' biogrid.res <- get_interaction_from_database(X, db, type = "db", user.ego = FALSE)
+#' 
+#' X <- letters[1:5]
+#' db <- as.data.frame(list(from = c(letters[1:5], letters[11:15]), to = c(letters[1:10])))
 
 #' @importFrom purrr is_empty map reduce
 #' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices
@@ -37,7 +40,7 @@ get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) 
         if(purrr::is_empty(node.names)){
             message("no shared elements between X and db, return empty graph")
         }
-        if(isTRUE(ego)){
+        else if(isTRUE(ego)){
             ego.neighbors <- igraph::adjacent_vertices(graph = db, v = X, mode = "all")
             ego.neighbors <- unique(purrr::reduce(purrr::map(ego.neighbors, ~names(.x)), union))
             ego.neighbors <- setdiff(ego.neighbors, node.names)
@@ -49,6 +52,19 @@ get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) 
             db.subgraph <- igraph::induced_subgraph(graph = db, vids = c(node.names))
             db.subgraph <- igraph::set_vertex_attr(graph = db.subgraph, name="mode", index = node.names, value = "core")
         }
+    } else { # db is a data.frame
+        db <- as.data.frame(db) %>% dplyr::select(c("from", "to")) # checked colnames
+        db.all.nodes <- unique(c(db$from, db$to))
+        node.names <- intersect(X, db.all.nodes)
+        if(purrr::is_empty(node.names)){
+            message("no shared elements between X and db, return empty graph")
+        }
+        else if(isTRUE(ego)){
+            ego.db <- db %>% dplyr::filter(.$from %in% node.names | .$to %in% node.names)
+            ego.neighbors <- setdiff(db.all.nodes, node.names)
+            
+            db.subgraph <- igraph::graph_from_data_frame(ego.db)
+        }
     }
     
     # return graph
@@ -56,3 +72,4 @@ get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) 
     class(db.subgraph) <- c("interaction.igraph", "igraph")
     return(db.subgraph)
 }
+
