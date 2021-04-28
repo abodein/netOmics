@@ -64,6 +64,8 @@ get_interaction_from_database <- function(X, db, type = "db", user.ego = FALSE) 
             ego.neighbors <- setdiff(db.all.nodes, node.names)
             
             db.subgraph <- igraph::graph_from_data_frame(ego.db)
+        } else {  # ego = FALSE
+            
         }
     }
     
