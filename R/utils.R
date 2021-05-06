@@ -44,23 +44,26 @@ check_getCluster <- function(X){
 check_graph <- function(X){
     stopifnot(is(X, "igraph") || is(X, "grn") || is.list(X))
     
-    if(is.list(X)){
-        stopifnot(all(as.logical(lapply(X, function(x) {is(x, "igraph") || is(x, "grn")}))))
+    if(is(X, "list")){
+        stopifnot(all(as.logical(lapply(X, function(x) {is(x, "igraph") || is(x, "list.igraph")}))))
+        class(X) <- c("list.igraph", class(X))
     }
     return(X)
 }
 
-check_db <- function(X){
+check_db <- function(X, var.name = "'db' "){
     # x is a dataframe with 2 columns (from, to) or igraph
-    stopifnot(is(X, "igraph") || is(X, "data.frame"))
+    if(!(is(X, "igraph") || is(X, "data.frame"))){
+        stop(paste0(var.name, "must be an igraph or data.frame object"))
+    }
     if(is(X, "data.frame") & !(all(c("from", "to") %in% colnames(X)))){
-        stop("X must contains the columns 'from' and 'to'")
+        stop(paste0(var.name, "must contains the columns 'from' and 'to'"))
     }
     return(X)
 }
 
 #' @importFrom purrr is_empty
-check_vector_char <- function(X, X.length = NULL, default = NULL){
+check_vector_char <- function(X, X.length = NULL, default = NULL, var.name = "'X' "){
     if(is.null(X)){
         return(default)
     }
@@ -70,7 +73,7 @@ check_vector_char <- function(X, X.length = NULL, default = NULL){
     if(is_empty(X)){
         return(default)
     } else if(!is.character(X)){
-        stop("X must be a charactor vector")
+        stop(paste0(var.name, "must be a charactor vector"))
     } else if(!is.null(X.length)){
         if(length(X) != X.length){
             stop("invalid length")

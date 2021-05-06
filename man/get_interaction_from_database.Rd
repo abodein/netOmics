@@ -26,4 +26,7 @@ data(BIOGRID)
 db <- BIOGRID
 X <- V(db)$name[1:10]
 biogrid.res <- get_interaction_from_database(X, db, type = "db", user.ego = FALSE)
+
+X <- letters[1:5]
+db <- as.data.frame(list(from = c(letters[1:5], letters[11:15]), to = c(letters[1:10])))
 }

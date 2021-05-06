@@ -33,18 +33,18 @@ get_grn <- function(X, cluster=NULL, method = c("aracne")){
     if(is.null(cluster)){ # no clusteing info -> perform grn on all molecules
         mim <- minet::build.mim(X)
         grn.adj <- minet::aracne(mim)
-        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj)
+        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj, mode = "undirected")
         
         # add type attribute "type" <- "Gene"
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, name = "type", value = "Gene")
-        res <- list()
-        res[["All"]] <- grn.graph
+        #res <- list()
+        return(grn.graph)
     } else { # cluster != NULL
         # we do have cluster info and data are clustered
         # 1. grn for all
         mim <- minet::build.mim(X)
         grn.adj <- minet::aracne(mim)
-        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj)
+        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj, mode = "undirected")
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, name = "type", value = "Gene")
         res <- list()
         res[["All"]] <- grn.graph
@@ -55,14 +55,14 @@ get_grn <- function(X, cluster=NULL, method = c("aracne")){
         
         for(i in names(mol_cluster)){
             mim.cluster <- minet::build.mim(X.by.cluster[[i]])
-            grn.adj.cluster <- minet::build.mim(mim.cluster)
-            grn.graph.cluster <- igraph::graph_from_adjacency_matrix(grn.adj.cluster)
+            grn.adj.cluster <- minet::aracne(mim.cluster)
+            grn.graph.cluster <- igraph::graph_from_adjacency_matrix(grn.adj.cluster, mode = "undirected")
             grn.graph.cluster <- igraph::set_vertex_attr(graph = grn.graph.cluster, name = "type", value = "Gene")
             res[[i]] <- grn.graph.cluster
 
         }
-        class(res) <- c("grn", "igraph")
-    return(res)
+        class(res) <- c("list.igraph")
     }
+    return(res)
 }
 

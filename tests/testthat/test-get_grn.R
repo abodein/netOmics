@@ -25,5 +25,6 @@ test_that("get_grn fails on invalid input - method", {
 })
 
 test_that("get_grn works", {
-    expect_is(get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne"), "grn")
+    expect_is(get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne"), "list.igraph")
+    expect_is(get_grn(X = HeLa$raw$mRNA, method = "aracne"), "igraph")
 })

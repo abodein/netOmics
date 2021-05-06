@@ -21,7 +21,7 @@ get_graph_stats <- function(X){
     
     X <- check_graph(X)
     
-    if(is.list(X)){
+    if(is(X, "list") | is(X, "list.igraph")){
         as.data.frame(lapply(X, function(x) .get_graph_stats_graph(x)))
         stats <- as.data.frame(purrr::imap_dfr(X, ~.get_graph_stats_graph(.x)))
         rownames(stats) <- names(X)
@@ -38,7 +38,20 @@ get_graph_stats <- function(X){
     node.c <- sum(igraph::degree(X) != 0)
     node.i <- sum(igraph::degree(X) == 0)
     edge <- igraph::ecount(X)
-    density <- igraph::edge_density(graph = X)
-    return(as.data.frame(list(node.c = node.c, node.i = node.i, edge = edge, density = density)))
+    edge.density <- igraph::edge_density(graph = X)
+    res <- list(node.c = node.c, node.i = node.i, edge = edge, edge.density = edge.density)
+    
+    if(any(names(vertex_attr(X)) != "name")){
+        item <- names(vertex_attr(X))[names(vertex_attr(X)) != "name"]
+        vertex.attr.res <- as.data.frame(vertex_attr(X)) %>% dplyr::select(item)
+        for(i in item){
+            tmp <- as.list(table(vertex.attr.res[[i]]))
+            for(j in names(tmp)){
+                name_item <- paste(i, j, sep = ".")
+                res[[name_item]] <- tmp[[j]]
+            }
+        }
+    }
+    return(as.data.frame(res))
 }
 
