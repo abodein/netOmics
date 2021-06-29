@@ -20,8 +20,6 @@ graph4.list.named <- list(graph3 = graph2, graph2 = graph2)
 class(graph1.list.named) <- class(graph2.list.named) <- class(graph3.list.named) <- class(graph4.list.named)  <- "list.igraph"
 
 
-
-
 test_that("get_grn fails on invalid input", {
     expect_error(combine_layers(graph1 = ""), "graph1 must be an igraph or list.igraph object", fixed = TRUE)
     expect_error(combine_layers(graph1, graph2 = ""), "graph2 must be an igraph or list.igraph object or NULL", fixed = TRUE)

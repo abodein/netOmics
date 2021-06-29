@@ -33,6 +33,21 @@ validate_list_matrix_X <- function(X){
     return(X)
 }
 
+is_almostInteger <- function (X) 
+{
+    if (!is.numeric(X) & !is.vector(X)) 
+        return(FALSE)
+    if (length(X) != 1) 
+        return(FALSE)
+    if (!is.finite(X)) 
+        return(FALSE)
+    X.round <- round(X)
+    if (X == X.round) 
+        return(TRUE)
+    return(FALSE)
+}
+
+
 check_getCluster <- function(X){
     if(!(is(X, "cluster.df") || is.null(X))){
         stop("cluster must be NULL or a result from getCluster()")
@@ -42,7 +57,7 @@ check_getCluster <- function(X){
 }
 
 check_graph <- function(X){
-    stopifnot(is(X, "igraph") || is(X, "grn") || is.list(X))
+    stopifnot(is(X, "igraph") || is(X, "grn") || is.list(X) || is(X, "list.igraph"))
     
     if(is(X, "list")){
         stopifnot(all(as.logical(lapply(X, function(x) {is(x, "igraph") || is(x, "list.igraph")}))))
@@ -52,6 +67,7 @@ check_graph <- function(X){
 }
 
 check_db <- function(X, var.name = "'db' "){
+    # ADD list of db
     # x is a dataframe with 2 columns (from, to) or igraph
     if(!(is(X, "igraph") || is(X, "data.frame"))){
         stop(paste0(var.name, "must be an igraph or data.frame object"))
@@ -97,4 +113,34 @@ return_true_false <- function(x, default){
         return(default)
     }
 }
+
+check_name_list <- function(X){
+    if(is.null(names(X))){
+        vec_names <- as.character(seq_along(X))
+    } else {
+        vec_names <- vector(mode = "character", length = length(X))
+        for(i in seq_along(X)){
+            if(names(X)[i] == ""){
+                vec_names[i] <- as.character(i)
+            } else {
+                vec_names[i] <- names(X)[i]
+            }
+        }   
+    }
+    return(vec_names)
+}
+
+check_single_numeric_value <- function(x, min = NULL, max = NULL, var.name = "'r' "){
+    if(!is.numeric(x) & !is.matrix(x) & length(x) == 1){
+        stop(paste0(var.name, "must be a numeric value"))
+    }
+    if(!is.null(min) & !is.null(max)){
+        if(x < min | x > max){
+            # internal, no need to check min and max order
+            stop(paste0(var.name, "must be a numeric value between ", min, " and ", max))
+        }
+    }
+    return(x)
+}
+
 

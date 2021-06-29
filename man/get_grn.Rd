@@ -2,19 +2,28 @@
 % Please edit documentation in R/get_grn.R
 \name{get_grn}
 \alias{get_grn}
-\title{Get Gene Regulatory Network from dataset}
+\title{Gene Regulatory Network}
 \usage{
 get_grn(X, cluster = NULL, method = c("aracne"))
 }
 \arguments{
-\item{X}{gene expression matrix/data.frame}
+\item{X}{a \code{data.frame}/\code{matrix} with gene expression (genes in columns, samples in rows).}
 
-\item{cluster}{optional, clustering result from timeOmics::getCluster}
+\item{cluster}{(optional) clustering result from \code{\link[timeOmics]{getCluster}}}
 
 \item{method}{network building method, one of c('aracne')}
 }
+\value{
+An igraph object if no cluster informations are given.
+Otherwise, it returns a list of igraph object (\code{list.igraph}) with a subgraph for each cluster and a global graph with all the genes.
+}
 \description{
-A more detailed description
+Get Gene Regulatory Network (GRN) from a data.frame.
+Optionally, if the gene are clustered, sub_network are build for each cluster.
+}
+\details{
+Methods of GRN reconstruction are as follows:
+'aracne': use ARACNe algorithm on Mutual Information (MI) adjency matrix to remove low MI edges in triangles.
 }
 \examples{
 data(HeLa)
@@ -23,4 +32,8 @@ cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
 X <- HeLa$raw$mRNA
 grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
 
+
+}
+\seealso{
+\code{\link[minet]{build.mim}}, \code{\link[minet]{aracne}}, \code{\link[timeOmics]{getCluster}}
 }

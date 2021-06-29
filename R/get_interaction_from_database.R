@@ -54,7 +54,7 @@ get_interaction_from_database <- function(X, db = NULL, type = "db", user.ego = 
                 db.subgraph.list[[i]] <-  .interaction_from_igraph(X = X[[i]], db = db, ego = user.ego, type = type)
             }
         } else { # db is a data.frame
-            for(Xi in X){
+            for(i in names(X)){
                 db.subgraph.list[[i]] <-  .interaction_from_dataframe(X = X[[i]], db = db, ego = user.ego, type = type)
             }
         }
@@ -105,7 +105,8 @@ get_interaction_from_database <- function(X, db = NULL, type = "db", user.ego = 
     }
     else if(isTRUE(ego)){
         ego.db <- db %>% dplyr::filter(.$from %in% node.names | .$to %in% node.names)
-        ego.neighbors <- setdiff(db.all.nodes, node.names)
+        #ego.neighbors <- setdiff(db.all.nodes, node.names)
+        ego.neighbors <- setdiff(unique(c(ego.db$from, ego.db$to)), node.names)
         
         db.subgraph <- igraph::graph_from_data_frame(ego.db, directed = FALSE)
         db.subgraph <- igraph::set_vertex_attr(graph = db.subgraph, name="mode", index = node.names, value = "core")

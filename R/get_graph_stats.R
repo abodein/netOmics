@@ -1,6 +1,6 @@
 #' get graph statistics
 #' 
-#' A more detailed description
+#' 
 #' 
 #' @examples
 #' data(HeLa)

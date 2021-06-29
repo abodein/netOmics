@@ -36,4 +36,30 @@ TF2DNA <- read_tsv("~/work/WORK:analysis/human_tf2DNA/TF2DNA_exp_uniq.txt", col_
 names(TF2DNA) <- c("TF","Target")
 
 ## TTRUST
+TTRUST <- read_tsv("~/Documents/TO2/LOREAL/Data/Proteomic/trrust_rawdata.human.tsv", col_names = F)
+colnames(TTRUST) <- c("TF", "Target", "Regulation", 'PMID')
+TFome <- rbind(TF2DNA, dplyr::select(TTRUST, c("TF", "Target")))
+
+saveRDS(TFome, file = "~/Documents/TO2/TFome.Rds")
+
+
+library(org.Hs.eg.db)
+
+AnnotationDbi::select(org.Hs.eg.db, keytype = "UNIPROT", keys = V()$name, 
+                                  columns = c("SYMBOL")) %>%
+    unique %>% na.omit
+
+
+# use TF(uniprot) -> Target(Symbol)
+TFome.filtered <- TFome %>% left_join(conv.ego, by = c("TF"="SYMBOL")) %>% na.omit %>%
+    dplyr::rename("TF.uniprot" = "UNIPROT") %>%
+    dplyr::select(TF.uniprot, Target) %>% # UNIPROT -> SYMBOL
+    unique %>%
+    set_names(c("Prot", "Gene")) %>%
+    mutate(from = Prot, to = Gene)
+# mutate(interaction_type = "TF")
+coding.filtered <- conv.ego %>% set_names(c("Prot", "Gene")) %>%
+    mutate(from = Gene, to = Prot)
+#%>%
+#mutate(interaction_type = "coding")
 

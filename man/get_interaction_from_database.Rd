@@ -4,7 +4,7 @@
 \alias{get_interaction_from_database}
 \title{Get interaction from database}
 \usage{
-get_interaction_from_database(X, db, type = "db", user.ego = FALSE)
+get_interaction_from_database(X, db = NULL, type = "db", user.ego = FALSE)
 }
 \arguments{
 \item{X}{vector of nodes or list of vectors}

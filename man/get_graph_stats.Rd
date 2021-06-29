@@ -7,7 +7,7 @@
 get_graph_stats(X)
 }
 \description{
-A more detailed description
+get graph statistics
 }
 \examples{
 data(HeLa)
