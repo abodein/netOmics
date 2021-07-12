@@ -4,7 +4,7 @@
 \alias{random_walk_restart}
 \title{Random Walk with Restart}
 \usage{
-random_walk_restart(X, seed, r = 0.7)
+random_walk_restart(X, seed = NULL, r = 0.7)
 }
 \arguments{
 \item{X}{an igraph or list.igraph object.}

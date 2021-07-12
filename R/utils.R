@@ -143,4 +143,14 @@ check_single_numeric_value <- function(x, min = NULL, max = NULL, var.name = "'r
     return(x)
 }
 
+check_named_vector <- function(X, var.name = "'X' "){
+    if(!(is(X, 'list') | is(X, "atomic"))){
+        stop(paste0(var.name, "must be a named verctor or list"))
+    }
+    if(is.null(names(X))){
+        stop(paste0(var.name, "must be a named verctor or list"))
+    }
+    return(X)
+}
+
 

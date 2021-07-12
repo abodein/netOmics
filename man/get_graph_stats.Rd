@@ -2,20 +2,26 @@
 % Please edit documentation in R/get_graph_stats.R
 \name{get_graph_stats}
 \alias{get_graph_stats}
-\title{get graph statistics}
+\title{Get graph statistics}
 \usage{
 get_graph_stats(X)
 }
+\arguments{
+\item{X}{an 'igraph' or 'list.igraph' object}
+}
 \description{
-get graph statistics
+For a given igraph or list of igraph objects, this functions summarize the number of vertices/edges and other vertex attributes.
 }
 \examples{
-data(HeLa)
-# grn only on gene
-cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-X <- HeLa$raw$mRNA
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
-get_graph_stats(grn.res)
+graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "-1")
 
+get_graph_stats(graph1)
+
+graph1.list <- list(graph1 = graph1, graph2 = graph1)
+get_graph_stats(graph1.list)
 
 }

@@ -2,19 +2,23 @@ Package: netOmics
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+    person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
+Description: netOmics is a multi-omics networks builder and explorer.
+    It uses a combinasion of network inference algorithms and and knowledge-based graphs to build multi-layered networks.
+    The package can be combined with timeOmics to incorporate time-course expression data and build sub-networks from multi-omics kinetic clusters.
+    Finally, from the generated multi-omics networks, propogation analyses allow the identification of missing biological functions (1), 
+    multi-omics mechanisms (2) and molecules between kinetic clusters (3). This helps to resolve complex regulatory mechanisms.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Depends: 
-    R (>= 2.10)
+Depends: R (>= 4.0)
+Imports: dplyr, ggplot2, igraph, magrittr, minet, purrr, tibble, tidyr
 Suggests: 
-    testthat
+    mixOmics,
+    igraph,
+    tidyverse,
+    BiocStyle
+    testthat,
+    covr

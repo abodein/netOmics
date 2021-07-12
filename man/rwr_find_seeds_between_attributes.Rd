@@ -2,14 +2,9 @@
 % Please edit documentation in R/RWR.R
 \name{rwr_find_seeds_between_attributes}
 \alias{rwr_find_seeds_between_attributes}
-\title{RWR Find seeds between clusters}
+\title{RWR Find seeds between attributes}
 \usage{
-rwr_find_seeds_between_attributes(
-  X,
-  seed = NULL,
-  k = 15,
-  attribute = "cluster"
-)
+rwr_find_seeds_between_attributes(X, seed = NULL, k = 15, attribute = "type")
 }
 \arguments{
 \item{X}{a random walk result from \code{random_walk_restart}}
@@ -19,21 +14,22 @@ rwr_find_seeds_between_attributes(
 \item{attribute}{a character value or NULL. If NULL, the closest node is returned.}
 }
 \value{
-A list of \code{data.frame} for each seed containing the closest nodes per seed and their vertex attributes.
-If X is \code{list.rwr}, the returned value is a list of list.
+A list of igraph object for each seed.
+If X is a list, it returns a list of list of graph.
 }
 \description{
-RWR Find seeds between clusters
+This function returns a subgraph if any vertex shares different attributes value.
+It can be useful to identify vertex shared between clusters or omics types.
 }
 \examples{
-#' data(HeLa)
+data(HeLa)
 X <- HeLa$raw$mRNA
 cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
 grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
 
 X <- grn.res[["All"]]
 all_seed <- igraph::V(X)$name
-seed <- all_seed[1:5]
+seed <- c("AAK1","ABCC1","ABL2")
 
 rwr_res <- random_walk_restart(X, seed)
 rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res, attribute = "cluster")
@@ -44,7 +40,6 @@ rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res)
 
 rwr_res <- random_walk_restart(X, all_seed)
 rwr_cluster_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "cluster")
-rwr_res <- random_walk_restart(X, all_seed, k = 15)
-rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res)
+rwr_block_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "block")#' 
 
 }

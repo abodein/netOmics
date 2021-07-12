@@ -51,7 +51,7 @@ get_grn <- function(X, cluster=NULL, method = c("aracne")){
         # add type attribute "type" <- "Gene"
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, name = "type", value = "gene")
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, name = "mode", value = "core")
-        grn.graph <- igraph::set_vertex_attr(graph = grn.graph.cluster, name = "cluster", value = "All")
+        grn.graph <- igraph::set_vertex_attr(graph = grn.graph, name = "cluster", value = "All")
         
         #res <- list()
         return(grn.graph)
@@ -85,7 +85,6 @@ get_grn <- function(X, cluster=NULL, method = c("aracne")){
             # also add cluster info to "All" graph
             res[["All"]] <- igraph::set_vertex_attr(graph = res[["All"]], name = "cluster", value = i, index = igraph::V(grn.graph.cluster)$name)
             
-
         }
         class(res) <- c("list.igraph")
     }

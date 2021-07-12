@@ -130,14 +130,14 @@ remove_unconnected_nodes <- function(X){
 }
 
 #' @importFrom dplyr filter pull top_n
-#' @importFrom igraph induced_subgraph set_vertex_attr
+#' @importFrom igraph induced_subgraph set_vertex_attr V
 rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
     Top_Results_Nodes <- RWRM_Result_Object %>% dplyr::filter(SeedName == Seed) %>%
         dplyr::top_n(n = k, wt = Score) %>% dplyr::pull(NodeNames)
         #RWRM_Result_Object$RWRM_Results$NodeNames[seq_len(k)]
     #Query_Nodes <- c(RWRM_Result_Object$Seed_Nodes, Top_Results_Nodes)
-    Query_Nodes <- intersect(c(Seed, Top_Results_Nodes), V(X)$name)
-    Target_Nodes <- intersect(Top_Results_Nodes, V(X)$name)
+    Query_Nodes <- intersect(c(Seed, Top_Results_Nodes), igraph::V(X)$name)
+    Target_Nodes <- intersect(Top_Results_Nodes, igraph::V(X)$name)
     
     if(!purrr::is_empty(Query_Nodes)){
         top_k_graph <- igraph::induced_subgraph(graph = X, vids = Query_Nodes)
@@ -164,7 +164,7 @@ rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
 #' If X is a list, it returns a list of list of graph.
 #' 
 #' @examples 
-#' #' data(HeLa)
+#' data(HeLa)
 #' X <- HeLa$raw$mRNA
 #' cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
 #' grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
@@ -181,11 +181,11 @@ rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
 #' rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res)
 #' 
 #' rwr_res <- random_walk_restart(X, all_seed)
-#' rwr_cluster_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "cluster", k = )
-#' rwr_block_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "block")
+#' rwr_cluster_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "cluster")
+#' rwr_block_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "block")#' 
 #' 
 #' @export
-rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute = "cluster"){
+rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute = "type"){
     # check X
     if(!(is(X, "rwr") | is(X, "list.rwr"))){
         stop("X must be a random walk result")
@@ -204,6 +204,9 @@ rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute 
         # don't check if all seeds are in vids -> NULL results anyway
         seed <- check_vector_char(X = seed, var.name = "'seed' ", default = NULL)
     } 
+    
+    # check attribute
+    attribute <-  check_vector_char(X = attribute, var.name = "'attribute' ", default = "type", X.length = 1)
     
     if(is(X, "rwr")){
         if(is.null(seed)){ # seed = all seeds 

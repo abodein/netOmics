@@ -11,10 +11,7 @@ get_ORA <- function(query, sources = c("GO"), organism = "hsapiens"){
     # check source
     ORA <- gprofiler2::gost(query = query, organism = organism, significant = FALSE, sources = sources, multi_query = FALSE)
     ORA.res <- ORA$result
-    
-
-
-    
+    return(result)
 }
     
 

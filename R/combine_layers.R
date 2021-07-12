@@ -38,7 +38,7 @@
 #' 
 #' 
 #' @importFrom purrr is_empty map reduce map2
-#' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices graph_from_data_frame vcount
+#' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices graph_from_data_frame vcount V
 #' @export
 combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
     
@@ -71,7 +71,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
         merged.res <- merge_graphs(graph1, graph2)
         if(!is.null(interaction.df)){ # interaction.graph can be not found, df can be NULL
             interaction.graph.induced <- igraph::induced_subgraph(graph = interaction.graph, 
-                                                                  vids = intersect(V(interaction.graph)$name, V(merged.res)$name))
+                                                                  vids = intersect(igraph::V(interaction.graph)$name, igraph::V(merged.res)$name))
             merged.res <- merge_graphs(merged.res, interaction.graph.induced)
         }
         
@@ -82,7 +82,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
             # merged.res <- list()  # already defined
             for(i in names(merged.res)){
                 interaction.graph.induced <- igraph::induced_subgraph(graph = interaction.graph, 
-                                                                      vids = intersect(V(interaction.graph)$name, V(merged.res[[i]])$name))
+                                                                      vids = intersect(igraph::V(interaction.graph)$name, igraph::V(merged.res[[i]])$name))
                 merged.res[[i]] <- merge_graphs(merged.res[[i]], interaction.graph.induced)
             }
             # merged.res <- purrr::map(merged.res, ~{merge_graphs(.x, interaction.graph)})
@@ -110,7 +110,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
         if(!is.null(interaction.df)){ # interaction.graph can be not found, df can be NULL
             for(i in names(merged.res)){
                 interaction.graph.induced <- igraph::induced_subgraph(graph = interaction.graph, 
-                                                                      vids = intersect(V(interaction.graph)$name, V(merged.res[[i]])$name))
+                                                                      vids = intersect(igraph::V(interaction.graph)$name, igraph::V(merged.res[[i]])$name))
                 merged.res[[i]] <- merge_graphs(merged.res[[i]], interaction.graph.induced)
             }
             # merged.res <- purrr::map(merged.res, ~{merge_graphs(.x, interaction.graph)})
