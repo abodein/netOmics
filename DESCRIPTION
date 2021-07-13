@@ -19,6 +19,6 @@ Suggests:
     mixOmics,
     igraph,
     tidyverse,
-    BiocStyle
+    BiocStyle,
     testthat,
     covr
