@@ -33,19 +33,19 @@ validate_list_matrix_X <- function(X){
     return(X)
 }
 
-is_almostInteger <- function (X) 
-{
-    if (!is.numeric(X) & !is.vector(X)) 
-        return(FALSE)
-    if (length(X) != 1) 
-        return(FALSE)
-    if (!is.finite(X)) 
-        return(FALSE)
-    X.round <- round(X)
-    if (X == X.round) 
-        return(TRUE)
-    return(FALSE)
-}
+# is_almostInteger <- function (X) 
+# {
+#     if (!is.numeric(X) & !is.vector(X)) 
+#         return(FALSE)
+#     if (length(X) != 1) 
+#         return(FALSE)
+#     if (!is.finite(X)) 
+#         return(FALSE)
+#     X.round <- round(X)
+#     if (X == X.round) 
+#         return(TRUE)
+#     return(FALSE)
+# }
 
 
 check_getCluster <- function(X){
@@ -99,7 +99,7 @@ check_vector_char <- function(X, X.length = NULL, default = NULL, var.name = "'X
     } else{
         return(X)
     }
-    return(default)
+#    return(default)
 }
 
 return_true_false <- function(x, default){
@@ -114,21 +114,21 @@ return_true_false <- function(x, default){
     }
 }
 
-check_name_list <- function(X){
-    if(is.null(names(X))){
-        vec_names <- as.character(seq_along(X))
-    } else {
-        vec_names <- vector(mode = "character", length = length(X))
-        for(i in seq_along(X)){
-            if(names(X)[i] == ""){
-                vec_names[i] <- as.character(i)
-            } else {
-                vec_names[i] <- names(X)[i]
-            }
-        }   
-    }
-    return(vec_names)
-}
+# check_name_list <- function(X){
+#     if(is.null(names(X))){
+#         vec_names <- as.character(seq_along(X))
+#     } else {
+#         vec_names <- vector(mode = "character", length = length(X))
+#         for(i in seq_along(X)){
+#             if(names(X)[i] == ""){
+#                 vec_names[i] <- as.character(i)
+#             } else {
+#                 vec_names[i] <- names(X)[i]
+#             }
+#         }   
+#     }
+#     return(vec_names)
+# }
 
 check_single_numeric_value <- function(x, min = NULL, max = NULL, var.name = "'r' "){
     if(!is.numeric(x) & !is.matrix(x) & length(x) == 1){

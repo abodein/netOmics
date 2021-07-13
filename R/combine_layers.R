@@ -38,13 +38,18 @@
 #' 
 #' 
 #' @importFrom purrr is_empty map reduce map2
-#' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices graph_from_data_frame vcount V
+#' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices graph_from_data_frame vcount V as.undirected
 #' @export
 combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
     
     # check graph1
     if(!is(graph1, "igraph") & !is(graph1, "list.igraph")){
         stop("graph1 must be an igraph or list.igraph object")
+    }
+    if(is(graph1, "list.igraph")){
+        if(is.null(names(graph1))){
+            names(graph1) <- seq_along(graph1)
+        }
     }
     
     if(!is(graph2, "igraph") & !is(graph2, "list.igraph") & !is.null(graph2)){
@@ -57,7 +62,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
             interaction.df <- interaction.df %>% dplyr::select(c("from", "to"))
             interaction.graph <- igraph::graph_from_data_frame(interaction.df, directed = FALSE)
         } else {
-            interaction.graph <- interaction.df
+            interaction.graph <- igraph::as.undirected(interaction.df)
         }
     }
     
@@ -78,6 +83,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
         # case3: graph1 is a list and graph2 is a single graph (+ interaction.df)
     } else if(is(graph1, "list.igraph") & is(graph2, "igraph")){
         merged.res <- purrr::map(graph1, ~{merge_graphs(.x, graph2)})
+        names(merged.res) <- names(graph1)
         if(!is.null(interaction.df)){ # interaction.graph can be not found, df can be NULL
             # merged.res <- list()  # already defined
             for(i in names(merged.res)){
@@ -105,7 +111,7 @@ combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
         } else {
             # no names, don't care about the order
             merged.res <- purrr::map2(graph1, graph2, ~{merge_graphs(.x, .y)})
-            
+            names(merged.res) <- names(graph1)
         }
         if(!is.null(interaction.df)){ # interaction.graph can be not found, df can be NULL
             for(i in names(merged.res)){

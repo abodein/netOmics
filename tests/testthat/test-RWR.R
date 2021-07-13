@@ -71,9 +71,15 @@ test_that("rwr_find_seeds_between_attributes works", {
     # seed
     expect_is(rwr_find_seeds_between_attributes(X=rwr_res, seed = logical(0)), "rwr.attributes")
     expect_is(rwr_find_seeds_between_attributes(X=rwr_res, attribute = logical(0)), "rwr.attributes")
+    expect_is(rwr_find_seeds_between_attributes(X=rwr_res, seed = "Z"), "rwr.attributes")
+    
+    expect_is(rwr_find_seeds_between_attributes(X=rwr_res.list, seed = "Z"), "list.rwr.attributes")
+    
     
     # k 
     expect_is(rwr_find_seeds_between_attributes(X=rwr_res, k = 1) , "rwr.attributes")
+    expect_is(rwr_find_seeds_between_attributes(X=rwr_res, k = NULL), "rwr.attributes")
+    
 })
 
 
@@ -110,5 +116,14 @@ test_that("rwr_find_closest_type works", {
     expect_is(rwr_find_closest_type(X=rwr_res, attribute = NULL, seed = NULL, value = "test"), "rwr.closest")
     expect_is(rwr_find_closest_type(X=rwr_res, value = "test"), "rwr.closest")
     
+    expect_is(rwr_find_closest_type(X=rwr_res, seed = "Z"), "rwr.closest")
+    
+    expect_is(rwr_find_closest_type(X=rwr_res.list, seed = "Z"), "list.rwr.closest")
     
 })
+
+# test_that("top_k_graph returns NULL", {
+#     rwr_top_k_graph
+#     rwr_top_k_graph(X = rwr_res$graph, RWRM_Result_Object = rwr_res$rwr, Seed = "A", k = 1)
+# })
+    

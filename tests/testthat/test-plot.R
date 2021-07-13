@@ -8,6 +8,12 @@ graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),val
 
 rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
 rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)
+
+graph1.list <- list("X" = graph1, "Y"= graph1)
+
+rwr_res.list <- random_walk_restart(X = graph1.list, seed = c("A", "B", "C", "D", "E"))
+rwr_res_type.list <- rwr_find_seeds_between_attributes(X = rwr_res.list, attribute = "type", k = 3)
+
 summary_plot_rwr_attributes(rwr_res_type)
 
 test_that("summary_plot_rwr_attributes fails on invalid input", {
@@ -36,6 +42,9 @@ test_that("summary_plot_rwr_attributes works", {
     expect_is(summary_plot_rwr_attributes(rwr_res_type, seed.type = c("1"), plot = NA), "ggplot")
     expect_is(summary_plot_rwr_attributes(rwr_res_type, seed.type = c("1"), plot = FALSE), "ggplot")
     
+    expect_is(summary_plot_rwr_attributes(rwr_res_type.list), "ggplot")
+    
+    expect_null(summary_plot_rwr_attributes(rwr_res_type, seed.type = c("f"), plot = FALSE))
     
 })
 

@@ -26,6 +26,9 @@ get_interaction_from_database <- function(X, db = NULL, type = "db", user.ego = 
     # check X
     if(is(X, "list")){
         X <- lapply(X,function(x)check_vector_char(x))
+        if(is.null(names(X))){
+            names(X) <- seq_along(X)
+        }
     } else {
         X <- check_vector_char(X)
     }
