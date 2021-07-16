@@ -12,7 +12,7 @@ author:
   affiliation: "Melbourne Integrative Genomics, School of Mathematics and Statistics, University of Melbourne, Melbourne, VIC, Australia"
 - name: "Arnaud Droit"
   affiliation: "CHU de Québec Research Center, Université Laval, Molecular Medicine department, Québec, QC, Canada"
-package: timeOmics  
+package: netOmics  
 output: 
   BiocStyle::html_document
   
@@ -23,6 +23,8 @@ vignette: >
 
 ---
 
+In this example, we will describe step by step how to create multi-omics networks and sub-networks by kinetic cluster from multi-omics time course data.
+
 ```{r, eval=FALSE}
 library(netOmics)
 library(timeOmics)
@@ -32,64 +34,6 @@ library(timeOmics)
 
 ```{r}
 data("HeLa")
-```
-
-1. Clustering
-
-```{r}
-cluster.res <- timeOmics::getUpDownCluster(X = HeLa$modelled)
-cluster.info <- timeOmics::getCluster(cluster.res) 
-head(cluster.info)
-table(cluster.info[,c(2,3)])
-```
-## Network building
-
-### Gene reglatory network
-
-```{r}
-cluster.mRNA <- timeOmics::getCluster(cluster.info, user.block = "mRNA")
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
-get_graph_stats(grn.res)
-```
-
-plot
-
-### PPI network
-
-```{r}
-data("BIOGRID") # biogrid v4.3.196
-data("human.BIOGRID") # biogrid v3.5.187
-
-# only proteins
-cluster.proteins <- getCluster(cluster.info, user.block = "prot") 
-
-# proteins name by cluster
-proteins <- lapply(split(cluster.proteins, f = cluster.proteins$cluster), function(x) x$molecule)
-biogrid.res <- get_interaction_from_database(X = proteins, db = human.BIOGRID, type = "db", user.ego = TRUE)
-get_graph_stats(biogrid.res)
-```
-
-```{r}
-#combine_layers(graph1 = grn.res, graph2 = biogrid.res)
-biogrid.res[["Up_Down"]] <- igraph::make_empty_graph(directed = FALSE)
-biogrid.res[["All"]] <- get_interaction_from_database(X = unlist(proteins), db = human.BIOGRID, type = "prot", user.ego = TRUE)
-get_graph_stats(biogrid.res)
-merged.graph <- combine_layers(graph1 = grn.res, graph2 = biogrid.res)
-```
-
-add TFome: TF2DNA, TTrust
-```{r}
-
-```
-
-
-add Metabolite
-
-add ORA
-
-perform RWR
-```{r}
-
 ```
 
 

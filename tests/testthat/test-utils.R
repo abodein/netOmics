@@ -33,27 +33,27 @@ test_that("check_matrix", {
 #     # X should be a numeric matrix
 #     X <- check_matrix(X)
 #     if(!is.numeric(X)){
-#         stop("X must be a numeric matrix/data.frame")
+#         stop("'X' must be a numeric matrix/data.frame")
 #     }
-#     # if(any(!X)) stop("X must be a numeric matrix/data.frame")
+#     # if(any(!X)) stop("'X' must be a numeric matrix/data.frame")
 #     return(X)
 # }
 
 test_that("validate_matrix_X", {
     X = data.frame("a" = c("A","B", "C"), 'b'= c(NA))
-    expect_error(validate_matrix_X(X), "X must be a numeric matrix/data.frame", fixed = TRUE)
+    expect_error(validate_matrix_X(X), "'X' must be a numeric matrix/data.frame", fixed = TRUE)
 })
 
 # validate_list_matrix_X <- function(X){
 #     if(!is.list(X)){
-#         stop("X must be a list of matrix/data.frame")
+#         stop("'X' must be a list of matrix/data.frame")
 #     }
 #     X <- lapply(X, validate_matrix_X)
 #     return(X)
 # }
 
 test_that("validate_list_matrix_X", {
-    expect_error(validate_list_matrix_X(X = 2), "X must be a list of matrix/data.frame", fixed=TRUE)
+    expect_error(validate_list_matrix_X(X = 2), "'X' must be a list of matrix/data.frame", fixed=TRUE)
     X <- list(data.frame("a" = c(1,2,3), 'b'= c(2,3,4)), data.frame("a" = c(1,2,3), 'b'= c(2,3,4)))
     expect_is(validate_list_matrix_X(X), "list")
 })

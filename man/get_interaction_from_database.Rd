@@ -22,11 +22,12 @@ a subset graph of db from X list of nodes
 Returns an interaction graph from a vector of nodes (or a list of vectors) and an interaction database (data.frame or igraph)
 }
 \examples{
-data(BIOGRID)
-db <- BIOGRID
-X <- V(db)$name[1:10]
-biogrid.res <- get_interaction_from_database(X, db, type = "db", user.ego = FALSE)
+X <- letters[1:4]
+db <- as.data.frame(list(from = sample(letters[1:10], replace = TRUE),
+                         to = sample(letters[1:10], replace = TRUE)))
+sub <- get_interaction_from_database(X, db)
 
-X <- letters[1:5]
-db <- as.data.frame(list(from = c(letters[1:5], letters[11:15]), to = c(letters[1:10])))
+db.graph <- igraph::graph_from_data_frame(db, directed=FALSE)
+sub <- get_interaction_from_database(X, db)
+
 }

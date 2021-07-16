@@ -33,9 +33,9 @@ this function returns a barplot of the node types (layers) reached for each seed
 \examples{
 graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
                                              to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 
 rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
 rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)

@@ -158,6 +158,7 @@ rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
 #' @param X a random walk result from \code{random_walk_restart}
 #' @param seed a character vector or NULL. If NULL, all the seeds from X are considered.
 #' @param attribute a character value or NULL. If NULL, the closest node is returned.
+#' @param k a integer, k closest nodes to consider in the search
 #' 
 #' @return 
 #' A list of igraph object for each seed.

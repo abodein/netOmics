@@ -35,7 +35,7 @@
 get_grn <- function(X, cluster=NULL, method = c("aracne")){
     
     # check if X
-    X <- validate_matrix_X(X)
+    X <- validate_matrix_X(X, var.name = "'X' ")
     
     # check cluster 
     cluster <- check_getCluster(cluster)

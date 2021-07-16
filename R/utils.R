@@ -7,27 +7,27 @@ check_matrix <- function(X){
         X <- as.matrix(X)
     }
     if(is.null(rownames(X))){
-        rownames(X) <- 1:nrow(X)
+        rownames(X) <- seq_len(nrow(X))
     }
     if(is.null(colnames(X))){
-        colnames(X) <- paste0("V", 1:ncol(X))
+        colnames(X) <- paste0("V", seq_len(ncol(X)))
     }
     return(X)
 }
 
-validate_matrix_X <- function(X){
+validate_matrix_X <- function(X, var.name = "'X' "){
     # X should be a numeric matrix
     X <- check_matrix(X)
     if(!is.numeric(X)){
-        stop("X must be a numeric matrix/data.frame")
+        stop(paste0(var.name,"must be a numeric matrix/data.frame"))
     }
     # if(any(!X)) stop("X must be a numeric matrix/data.frame")
     return(X)
 }
 
-validate_list_matrix_X <- function(X){
+validate_list_matrix_X <- function(X, var.name = "'X' "){
     if(!is.list(X)){
-        stop("X must be a list of matrix/data.frame")
+        stop(paste0(var.name, "must be a list of matrix/data.frame"))
     }
     X <- lapply(X, validate_matrix_X)
     return(X)

@@ -1,6 +1,6 @@
 Package: netOmics
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Multi-Omics (time-course) network-based integration and interpretation
+Version: 0.99.1
 Authors@R: 
     person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
 Description: netOmics is a multi-omics networks builder and explorer.
@@ -13,12 +13,28 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+VignetteBuilder: knitr
 Depends: R (>= 4.0)
-Imports: dplyr, ggplot2, igraph, magrittr, minet, purrr, tibble, tidyr
+Imports: 
+    dplyr, 
+    ggplot2, 
+    igraph, 
+    magrittr, 
+    minet, 
+    purrr, 
+    tibble, 
+    tidyr, 
+    AnnotationDbi, 
+    GO.db, 
+    RandomWalkRestartMH, 
+    gprofiler2
 Suggests: 
     mixOmics,
-    igraph,
+    timeOmics,
     tidyverse,
     BiocStyle,
     testthat,
-    covr
+    covr,
+    rmarkdown,
+    knitr
+biocViews: GraphAndNetwork, Software, TimeCourse, WorkflowStep, SystemsBiology, NetworkInference, Network

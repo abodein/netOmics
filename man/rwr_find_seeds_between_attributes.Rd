@@ -11,6 +11,8 @@ rwr_find_seeds_between_attributes(X, seed = NULL, k = 15, attribute = "type")
 
 \item{seed}{a character vector or NULL. If NULL, all the seeds from X are considered.}
 
+\item{k}{a integer, k closest nodes to consider in the search}
+
 \item{attribute}{a character value or NULL. If NULL, the closest node is returned.}
 }
 \value{

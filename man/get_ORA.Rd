@@ -6,6 +6,19 @@
 \usage{
 get_ORA(query, sources = c("GO"), organism = "hsapiens")
 }
+\arguments{
+\item{query}{a vector of character, a lit of ID}
+
+\item{sources}{a character or list of character}
+
+\item{organism}{a character (default = "hsapiens")}
+}
+\value{
+a data.frame containing the enrichment result
+}
 \description{
 Returns results of an ORA analysis
+}
+\seealso{
+\code{\link[gprofiler2]{gost}}
 }
