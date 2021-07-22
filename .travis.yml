@@ -13,6 +13,9 @@ cache: packages
 # # Tell Travis to run BiocCheck.
 # bioc_check: true
 
+script: 
+  - R -e 'install.packages("BiocManager")'
+  - R -e 'BiocManager::install(version = "3.14")'  
 
 # Install the covr dependancy
 r_packages:
