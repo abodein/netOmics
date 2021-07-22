@@ -145,8 +145,8 @@ rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
 
 #' RWR Find seeds between attributes
 #' 
-#' This function returns a subgraph if any vertex shares different attributes value.
-#' It can be useful to identify vertex shared between clusters or omics types.
+#' From rwr results, this function returns a subgraph if any vertex shares different attributes value.
+#' In biological context, this might be useful to identify vertex shared between clusters or omics types.
 #' 
 #' @param X a random walk result from \code{random_walk_restart}
 #' @param seed a character vector or NULL. If NULL, all the seeds from X are considered.
@@ -246,8 +246,8 @@ rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute 
 
 #' RWR Find closest nodes
 #' 
-#' This function returns the closest nodes from a seed with a given attribute and value.
-#' In the random walk context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
+#' From a rwr results, this function returns the closest nodes from a seed with a given attribute and value.
+#' In biological context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
 #' 
 #' @param X a random walk result from \code{random_walk_restart}
 #' @param seed a character vector or NULL. If NULL, all the seeds from X are considered.

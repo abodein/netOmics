@@ -7,7 +7,7 @@
 #' @param cluster (optional) clustering result from \code{\link[timeOmics]{getCluster}}
 #' @param method network building method, one of c('aracne')
 #' @param type character added to node metadata
-
+#' 
 #' 
 #' @details 
 #' Methods of GRN reconstruction are as follows:

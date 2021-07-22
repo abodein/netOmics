@@ -20,8 +20,8 @@ A list of igraph object for each seed.
 If X is a list, it returns a list of list of graph.
 }
 \description{
-This function returns a subgraph if any vertex shares different attributes value.
-It can be useful to identify vertex shared between clusters or omics types.
+From rwr results, this function returns a subgraph if any vertex shares different attributes value.
+In biological context, this might be useful to identify vertex shared between clusters or omics types.
 }
 \examples{
 graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 

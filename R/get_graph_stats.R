@@ -1,8 +1,12 @@
 #' Get graph statistics
 #' 
-#' For a given igraph or list of igraph objects, this functions summarize the number of vertices/edges and other vertex attributes.
+#' For a given igraph or list of igraph objects, this function summarize the number of vertices/edges and other vertex attributes.
 #' 
 #' @param X an 'igraph' or 'list.igraph' object
+#' 
+#' @return 
+#' It returns a long data.frame with number of nodes/edges, and the count of the different attributes 
+#' (if X is a list of graph, each row describes a graph)
 #' 
 #' @examples
 #' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 

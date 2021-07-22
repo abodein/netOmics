@@ -22,8 +22,8 @@ A list of \code{data.frame} for each seed containing the closest nodes per seed 
 If X is \code{list.rwr}, the returned value is a list of list.
 }
 \description{
-This function returns the closest nodes from a seed with a given attribute and value.
-In the random walk context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
+From a rwr results, this function returns the closest nodes from a seed with a given attribute and value.
+In biological context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
 }
 \examples{
 graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
