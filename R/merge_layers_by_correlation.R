@@ -14,15 +14,15 @@
 #' @examples
 #' X <- matrix(rexp(200, rate=.1), ncol=20)
 #' Y <- matrix(rexp(200, rate=.1), ncol=20)
-#' interaction_from_correlation(X,Y)
+#' get_interaction_from_correlation(X,Y)
 #' 
 #' X <- list(matrix(rexp(200, rate=.1), ncol=20), matrix(rexp(200, rate=.1), ncol=20))
 #' Y <- matrix(rexp(200, rate=.1), ncol=20)
-#' interaction_from_correlation(X,Y)
+#' get_interaction_from_correlation(X,Y)
 
 #' @importFrom igraph graph_from_incidence_matrix simplify
 #' @export
-interaction_from_correlation <- function(X, Y, threshold = 0.5){
+get_interaction_from_correlation <- function(X, Y, threshold = 0.5){
     
     # check X
     if(is(X, "list")){

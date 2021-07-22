@@ -4,7 +4,7 @@
 \alias{get_grn}
 \title{Gene Regulatory Network}
 \usage{
-get_grn(X, cluster = NULL, method = c("aracne"))
+get_grn(X, cluster = NULL, method = c("aracne"), type = "gene")
 }
 \arguments{
 \item{X}{a \code{data.frame}/\code{matrix} with gene expression (genes in columns, samples in rows).}
@@ -12,6 +12,8 @@ get_grn(X, cluster = NULL, method = c("aracne"))
 \item{cluster}{(optional) clustering result from \code{\link[timeOmics]{getCluster}}}
 
 \item{method}{network building method, one of c('aracne')}
+
+\item{type}{character added to node metadata}
 }
 \value{
 An igraph object if no cluster informations are given.
@@ -26,11 +28,11 @@ Methods of GRN reconstruction are as follows:
 'aracne': use ARACNe algorithm on Mutual Information (MI) adjency matrix to remove low MI edges in triangles.
 }
 \examples{
-data(HeLa)
+data(hmp_T2D)
 # grn only on gene
-cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-X <- HeLa$raw$mRNA
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
+cluster.mRNA <- timeOmics::getCluster(hmp_T2D$getCluster.res, user.block = "RNA")
+X <- hmp_T2D$raw$RNA
+grn.res <- get_grn(X = hmp_T2D$raw$RNA, cluster = cluster.mRNA, method = "aracne")
 
 
 }

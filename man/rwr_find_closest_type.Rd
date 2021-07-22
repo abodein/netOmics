@@ -4,7 +4,7 @@
 \alias{rwr_find_closest_type}
 \title{RWR Find closest nodes}
 \usage{
-rwr_find_closest_type(X, seed = NULL, attribute = NULL, value = NULL)
+rwr_find_closest_type(X, seed = NULL, attribute = NULL, value = NULL, top = 1)
 }
 \arguments{
 \item{X}{a random walk result from \code{random_walk_restart}}
@@ -14,6 +14,8 @@ rwr_find_closest_type(X, seed = NULL, attribute = NULL, value = NULL)
 \item{attribute}{a character value or NULL. If NULL, the closest node is returned.}
 
 \item{value}{a character value or NULL. If NULL, the closest node for a given attribute is returned.}
+
+\item{top}{a numeric value, the top closest nodes to extract}
 }
 \value{
 A list of \code{data.frame} for each seed containing the closest nodes per seed and their vertex attributes.
@@ -24,19 +26,13 @@ This function returns the closest nodes from a seed with a given attribute and v
 In the random walk context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
 }
 \examples{
-data(HeLa)
-X <- HeLa$raw$mRNA
-cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
+graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 
-X <- grn.res[["All"]]
-all_seed <- igraph::V(X)$name
-seed <- all_seed[1:5]
-
-rwr_res <- random_walk_restart(X, seed)
-
-rwr_res <- random_walk_restart(grn.res, seed)
-rwr_closest_res <- rwr_find_closest_type(rwr_res, attribute = "cluster")
-rwr_closest_res <- rwr_find_closest_type(rwr_res)
+rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
+rwr_find_closest_type(X=rwr_res, attribute = "type", seed = "A")
 
 }

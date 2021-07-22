@@ -24,24 +24,13 @@ This function returns a subgraph if any vertex shares different attributes value
 It can be useful to identify vertex shared between clusters or omics types.
 }
 \examples{
-data(HeLa)
-X <- HeLa$raw$mRNA
-cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
+graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 
-X <- grn.res[["All"]]
-all_seed <- igraph::V(X)$name
-seed <- c("AAK1","ABCC1","ABL2")
-
-rwr_res <- random_walk_restart(X, seed)
-rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res, attribute = "cluster")
-rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res, attribute = "block")
-
-rwr_res <- random_walk_restart(grn.res, seed)
-rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res)
-
-rwr_res <- random_walk_restart(X, all_seed)
-rwr_cluster_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "cluster")
-rwr_block_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "block")#' 
+rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
+rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)
 
 }

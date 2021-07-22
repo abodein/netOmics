@@ -24,20 +24,13 @@ If X is a \code{list.igraph}, the returned object is a \code{list.rwr}.
 This function performs a propagation analysis by random walk with restart in a multi-layered network from specific seeds.
 }
 \examples{
+graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 
-data(HeLa)
-X <- HeLa$raw$mRNA
-cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
-
-X <- grn.res
-Xi <- grn.res[["Up_Up"]]
-seed <- igraph::V(Xi)$name[1:5]
-rwr_res <- random_walk_restart(Xi, seed)
-
-rwr_res <- random_walk_restart(X, seed)
-
-random_walk_restart(X, seed = "A")
+rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
 
 }
 \seealso{

@@ -17,20 +17,13 @@
 #' \code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}}, \code{\link[netOmics]{rwr_find_seeds_between_attributes}}, \code{\link[netOmics]{rwr_find_closest_type}}
 #' 
 #' @examples
+#' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+#' to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 #' 
-#' data(HeLa)
-#' X <- HeLa$raw$mRNA
-#' cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-#' grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
-#' 
-#' X <- grn.res
-#' Xi <- grn.res[["Up_Up"]]
-#' seed <- igraph::V(Xi)$name[1:5]
-#' rwr_res <- random_walk_restart(Xi, seed)
-#' 
-#' rwr_res <- random_walk_restart(X, seed)
-#' 
-#' random_walk_restart(X, seed = "A")
+#' rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
 #' 
 #' @import RandomWalkRestartMH
 #' @importFrom dplyr mutate left_join
@@ -82,7 +75,7 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7){
                     dplyr::left_join(as.data.frame(vertex_attr(X[[i]])), by = c("NodeNames" = "name"))
                 res[[index_name_i]][["graph"]] <- X[[i]]
                 res[[index_name_i]][["seed"]] <- seed_xi
-                
+                class(res[[index_name_i]]) <- "rwr"
             }
             class(res) <- c("list.rwr")
         }
@@ -165,25 +158,14 @@ rwr_top_k_graph <- function(X, RWRM_Result_Object, Seed, k = 15){
 #' If X is a list, it returns a list of list of graph.
 #' 
 #' @examples 
-#' data(HeLa)
-#' X <- HeLa$raw$mRNA
-#' cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-#' grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
+#' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+#'                                              to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 #' 
-#' X <- grn.res[["All"]]
-#' all_seed <- igraph::V(X)$name
-#' seed <- c("AAK1","ABCC1","ABL2")
-#' 
-#' rwr_res <- random_walk_restart(X, seed)
-#' rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res, attribute = "cluster")
-#' rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res, attribute = "block")
-#' 
-#' rwr_res <- random_walk_restart(grn.res, seed)
-#' rwr_cluster_res <- rwr_find_seeds_between_attributes(rwr_res)
-#' 
-#' rwr_res <- random_walk_restart(X, all_seed)
-#' rwr_cluster_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "cluster")
-#' rwr_block_res <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "block")#' 
+#' rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
+#' rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)
 #' 
 #' @export
 rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute = "type"){
@@ -229,6 +211,7 @@ rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute 
             }
             
             res[[index_name_i]] <- .rwr_find_seeds_between_attribute(rwr = X[[index_name_i]], k = k, attribute = attribute, seed = seed_i)
+            class(res[[index_name_i]]) <- "rwr.attributes"
             
         }
         class(res) <- "list.rwr.attributes"
@@ -270,6 +253,7 @@ rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute 
 #' @param seed a character vector or NULL. If NULL, all the seeds from X are considered.
 #' @param attribute a character value or NULL. If NULL, the closest node is returned.
 #' @param value a character value or NULL. If NULL, the closest node for a given attribute is returned.
+#' @param top a numeric value, the top closest nodes to extract
 #' 
 #' 
 #' 
@@ -279,23 +263,18 @@ rwr_find_seeds_between_attributes <- function(X, seed = NULL, k = 15, attribute 
 #' 
 #' 
 #' @examples 
-#' data(HeLa)
-#' X <- HeLa$raw$mRNA
-#' cluster.mRNA <- timeOmics::getCluster(HeLa$getCluster, user.block = "mRNA")
-#' grn.res <- get_grn(X = HeLa$raw$mRNA, cluster = cluster.mRNA, method = "aracne")
+#' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+#'                                              to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
+#' graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
 #' 
-#' X <- grn.res[["All"]]
-#' all_seed <- igraph::V(X)$name
-#' seed <- all_seed[1:5]
+#' rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
+#' rwr_find_closest_type(X=rwr_res, attribute = "type", seed = "A")
 #' 
-#' rwr_res <- random_walk_restart(X, seed)
-#' 
-#' rwr_res <- random_walk_restart(grn.res, seed)
-#' rwr_closest_res <- rwr_find_closest_type(rwr_res, attribute = "cluster")
-#' rwr_closest_res <- rwr_find_closest_type(rwr_res)
-#' 
+
 #' @export
-rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL){
+rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL, top = 1){
     # check X
     if(!(is(X, "rwr") | is(X, "list.rwr"))){
         stop("X must be a random walk result")
@@ -307,6 +286,9 @@ rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL
     # check value or replace with default value
     value <- check_vector_char(X = value, X.length = 1, default = NULL, var.name = "'value' ")
     
+    # check top
+    top <- check_single_numeric_value(top, var.name = "'top' ")
+    
     # check seed  # if seed is null, all seeds are considered found in rwr are considered
     if(!is.null(seed)){
         # don't check if all seeds are in vids -> NULL results anyway
@@ -317,7 +299,7 @@ rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL
         if(is.null(seed)){ # seed = all seeds 
             seed <- X$seed  # can be NULL
         }
-        res <- .rwr_find_closest(rwr = X, user.attribute = attribute, seed = seed, user.value = value)
+        res <- .rwr_find_closest(rwr = X, user.attribute = attribute, seed = seed, user.value = value, top = top)
         class(res) <- "rwr.closest"
     } else { # X is list.res
         # should not be run on list.res because each item contains a unique cluster
@@ -332,7 +314,8 @@ rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL
                 seed_i <- seed
             }
             
-            res[[index_name_i]] <- .rwr_find_closest(rwr = X[[index_name_i]], user.attribute = attribute, seed = seed_i, user.value = value)
+            res[[index_name_i]] <- .rwr_find_closest(rwr = X[[index_name_i]], user.attribute = attribute, seed = seed_i, user.value = value, top = top)
+            class(res[[index_name_i]]) <- "rwr.closest"
             
         }
         class(res) <- "list.rwr.closest"
@@ -343,18 +326,21 @@ rwr_find_closest_type <- function(X, seed = NULL, attribute = NULL, value = NULL
 #' @importFrom dplyr filter top_n left_join select everything
 #' @importFrom purrr map_dfr
 #' @importFrom tidyr pivot_longer
-.rwr_find_closest <- function(rwr, user.attribute, user.value, seed){
+.rwr_find_closest <- function(rwr, user.attribute, user.value, seed, top){
     res <- list()
     for(seed_xi in seed){
         rwr.res.filtered <- dplyr::filter(rwr$rwr, SeedName == seed_xi) 
-        rwr.res.filtered <- tidyr::pivot_longer(rwr.res.filtered, names_to = "attribute", values_to = "value", -c(NodeNames, Score, SeedName))
+        # fix to use pivot_longer with different cast columns (integer/logical, ...)
+        rwr.res.filtered <- rwr.res.filtered %>% t %>% t %>% as.data.frame()
+        rwr.res.filtered <- tidyr::pivot_longer(rwr.res.filtered, names_to = "attribute", values_to = "value", -c(NodeNames, Score, SeedName),
+                                                values_ptypes = list(value=character()))
         if(!is.null(user.attribute)){
             rwr.res.filtered <- dplyr::filter(rwr.res.filtered, attribute == user.attribute)
         }
         if(!is.null(user.value)){
             rwr.res.filtered <- dplyr::filter(rwr.res.filtered, value == user.value)
         }
-        rwr.res.filtered <- dplyr::top_n(x = rwr.res.filtered, n = 1, wt = Score) %>%
+        rwr.res.filtered <- dplyr::top_n(x = rwr.res.filtered, n = top, wt = Score) %>%
             dplyr::select(c(NodeNames, SeedName)) %>% unique
         if(nrow(rwr.res.filtered) > 0){
             res[[seed_xi]] <- dplyr::left_join(rwr.res.filtered, rwr$rwr, by =  c("NodeNames" = "NodeNames", "SeedName" = "SeedName")) %>% 

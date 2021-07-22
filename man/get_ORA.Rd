@@ -4,7 +4,7 @@
 \alias{get_ORA}
 \title{ORA enrichment analysis}
 \usage{
-get_ORA(query, sources = c("GO"), organism = "hsapiens")
+get_ORA(query, sources = NULL, organism = "hsapiens")
 }
 \arguments{
 \item{query}{a vector of character, a lit of ID}

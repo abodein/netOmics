@@ -114,7 +114,7 @@ summary_plot_rwr_attributes <- function(X, color = NULL, seed.id = NULL, seed.ty
         theme(axis.text.x = element_text(angle = 90, hjust=1))
     
     if(is(X, "list.rwr.attributes")){
-        gg.tmp <- gg.tmp + facet_grid(.~sub)
+        gg.tmp <- gg.tmp + facet_grid(.~sub, scales = "free_x")
     }
     if(plot == TRUE){
         print(gg.tmp)

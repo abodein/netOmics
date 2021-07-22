@@ -1,0 +1,10 @@
+citHeader("To cite netOmics in publications, please use:")
+
+citEntry(entry="article",
+ 	title={"Interpretation of network-based integration from multi-omics longitudinal data"},
+	author={"Bodein, Antoine and Scott-Boyer, Marie-Pier and Perin, Olivier and Le Cao, Kim-Anh and Droit, Arnaud"},
+	journal={"bioRxiv"},
+	year={"2020"},
+ 	publisher={"Cold Spring Harbor Laboratory"},
+	textVersion={"Bodein, A., Scott-Boyer, M. P., Perin, O., Le Cao, K. A., & Droit, A. (2020). Interpretation of network-based integration from multi-omics longitudinal data. bioRxiv."}
+)
