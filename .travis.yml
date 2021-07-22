@@ -13,6 +13,10 @@ warnings_are_errors: false
 # Tell Travis to run BiocCheck.
 bioc_check: true
 
+script: 
+  - R -e 'install.packages("BiocManager")'
+  - R -e 'BiocManager::install(version = "4.1")'  
+
 # Install the covr dependancy
 r_packages:
   - covr
