@@ -14,3 +14,31 @@ After merging the sub-networks to obtain a global multi-omics network, we propos
 Furthermore, the package has been developed for longitudinal multi-omics data and can be used in conjunction with our previously published package timeOmics.
 
 for more examples, please visite https://github.com/abodein/netOmics-case-studies
+
+## Installation
+
+### Latest `GitHub` Version
+
+
+Install the devtools package in R, then load it and install the latest stable version of `netOmics` from `GitHub`
+
+```r
+## install devtools if not installed
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+## install netOmics
+devtools::install_github("abodein/netOmics")
+```
+
+## Citing
+
+*"Bodein, A., Scott-Boyer, M. P., Perin, O., Le Cao, K. A., & Droit, A. (2020). Interpretation of network-based integration from multi-omics longitudinal data. bioRxiv."*
+
+## Maintainer
+Antoine Bodein (<antoine.bodein.1@ulaval.ca>)
+
+## Bugs/Feature requests
+
+If you have any bugs or feature requests, [let us know](https://github.com/abodein/netOmics/issues). 
+Thanks!
+
