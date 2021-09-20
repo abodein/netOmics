@@ -17,8 +17,19 @@ for more examples, please visite https://github.com/abodein/netOmics-case-studie
 
 ## Installation
 
-### Latest `GitHub` Version
+### Latest `BioConductor` Release
 
+To install this package, start R (version "4.1") and enter: 
+
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("netOmics")
+```
+
+
+### Latest `GitHub` Version
 
 Install the devtools package in R, then load it and install the latest stable version of `netOmics` from `GitHub`
 

@@ -1,20 +1,20 @@
 Package: netOmics
 Title: Multi-Omics (time-course) network-based integration and interpretation
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: 
     person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
 Description: netOmics is a multi-omics networks builder and explorer.
-    It uses a combinasion of network inference algorithms and and knowledge-based graphs to build multi-layered networks.
+    It uses a combination of network inference algorithms and and knowledge-based graphs to build multi-layered networks.
     The package can be combined with timeOmics to incorporate time-course expression data and build sub-networks from multi-omics kinetic clusters.
     Finally, from the generated multi-omics networks, propogation analyses allow the identification of missing biological functions (1), 
     multi-omics mechanisms (2) and molecules between kinetic clusters (3). This helps to resolve complex regulatory mechanisms.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
-Depends: R (>= 4.0)
+Depends: R (>= 4.1)
 Imports: 
     dplyr, 
     ggplot2, 
@@ -38,3 +38,5 @@ Suggests:
     rmarkdown,
     knitr
 biocViews: GraphAndNetwork, Software, TimeCourse, WorkflowStep, SystemsBiology, NetworkInference, Network
+URL: https://github.com/abodein/netOmics
+BugReports: https://github.com/abodein/netOmics/issues
