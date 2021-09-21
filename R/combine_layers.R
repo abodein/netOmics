@@ -40,7 +40,9 @@
 #' @importFrom purrr is_empty map reduce map2
 #' @importFrom igraph induced_subgraph set_vertex_attr adjacent_vertices graph_from_data_frame vcount V as.undirected
 #' @export
-combine_layers <- function(graph1, graph2 = NULL, interaction.df = NULL) {
+combine_layers <- function(graph1, 
+                           graph2 = NULL, 
+                           interaction.df = NULL) {
     
     # check graph1
     if(!is(graph1, "igraph") & !is(graph1, "list.igraph")){
