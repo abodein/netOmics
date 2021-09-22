@@ -20,7 +20,7 @@
 #'               "c1" = c("IL15", "CDHR5", "TGFA"))
 #' get_interaction_from_ORA(query, sources = "GO")
 #' 
-#' @import gprofiler2
+#' @importFrom gprofiler2 gost gconvert
 #' @importFrom dplyr pull select filter
 #' @export
 get_interaction_from_ORA <- function(query, sources = "GO", organism = "hsapiens", signif.value = TRUE){
@@ -100,7 +100,7 @@ get_interaction_from_ORA <- function(query, sources = "GO", organism = "hsapiens
 #'  
 #' @seealso \code{\link[gprofiler2]{gost}}
 #'
-#' @import gprofiler2
+#' @importFrom gprofiler2 gost 
 get_ORA <- function(query, sources = NULL, organism = "hsapiens"){
     
     if (is(query, "list")){

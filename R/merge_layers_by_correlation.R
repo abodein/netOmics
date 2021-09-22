@@ -21,6 +21,8 @@
 #' get_interaction_from_correlation(X,Y)
 
 #' @importFrom igraph graph_from_incidence_matrix simplify
+#' @importFrom stats cor
+
 #' @export
 get_interaction_from_correlation <- function(X, Y, threshold = 0.5){
     

@@ -25,7 +25,7 @@
 #' 
 #' rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
 #' 
-#' @import RandomWalkRestartMH
+#' @importFrom RandomWalkRestartMH create.multiplex compute.adjacency.matrix normalize.multiplex.adjacency Random.Walk.Restart.Multiplex
 #' @importFrom dplyr mutate left_join
 #' @importFrom purrr imap_dfr
 #' @importFrom magrittr %>%

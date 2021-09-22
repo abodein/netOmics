@@ -21,20 +21,30 @@
 #'
 #' @examples
 #' # with single graphs
-#' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B"), to = c("B", "C")), directed = FALSE)
-#' graph2 <- igraph::graph_from_data_frame(list(from = c(1), to = c(2)), directed = FALSE)
-#' res <- combine_layers(graph1 = graph1, graph2 = graph2)
+#' graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B"),
+#'                                              to = c("B", "C")),
+#'                                         directed = FALSE)
+#' graph2 <- igraph::graph_from_data_frame(list(from = c(1), 
+#'                                              to = c(2)),
+#'                                         directed = FALSE)
+#' res <- combine_layers(graph1 = graph1,
+#'                       graph2 = graph2)
 #' 
 #' # with list of graphs
 #' graph1.list <- list(graph1, graph1)
 #' graph2.list <- list(graph2, graph2)
 #' class(graph1.list) <- class(graph2.list) <- "list.igraph"
-#' res <- combine_layers(graph1 = graph1.list, graph2 = graph2)
-#' res <- combine_layers(graph1 = graph1.list, graph2 = graph2.list)
+#' 
+#' res <- combine_layers(graph1 = graph1.list, 
+#'                       graph2 = graph2)
+#' res <- combine_layers(graph1 = graph1.list, 
+#'                       graph2 = graph2.list)
 #' 
 #' # with interaction dataframe
 #' interaction.df1 <- as.data.frame(list(from = c("C", "B"), to = c(1, 2)))
-#' res <- combine_layers(graph1 = graph1.list, graph2 = graph2, interaction.df = interaction.df1)
+#' res <- combine_layers(graph1 = graph1.list, 
+#'                       graph2 = graph2, 
+#'                       interaction.df = interaction.df1)
 #' 
 #' 
 #' @importFrom purrr is_empty map reduce map2

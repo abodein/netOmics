@@ -47,7 +47,7 @@ validate_list_matrix_X <- function(X, var.name = "'X' "){
 #     return(FALSE)
 # }
 
-
+#' @importFrom methods is
 check_getCluster <- function(X){
     if(!(is(X, "cluster.df") || is.null(X))){
         stop("cluster must be NULL or a result from getCluster()")
@@ -79,6 +79,7 @@ check_db <- function(X, var.name = "'db' "){
 }
 
 #' @importFrom purrr is_empty
+#' @importFrom stats na.omit
 check_vector_char <- function(X, X.length = NULL, default = NULL, var.name = "'X' "){
     if(is.null(X)){
         return(default)
