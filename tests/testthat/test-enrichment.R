@@ -9,7 +9,7 @@ test_that("get_interaction_from_ORA fails on invalid imput", {
 test_that("get_interaction_from_ORA works ", {
      query <- c("IL15", "CDHR5", "TGFA", 'C4B')
      expect_is(get_interaction_from_ORA(query, sources = "GO"), "igraph")
-     expect_is(get_interaction_from_ORA(query, sources = c("KEGG")), "igraph")
+     expect_is(get_interaction_from_ORA(query, sources = c("KEGG")), "NULL")
      
      
      query <- list("All" = c("IL15", "CDHR5", "TGFA", 'C4B'),

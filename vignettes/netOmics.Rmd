@@ -568,7 +568,7 @@ d <- degree(FULL$All)
 hist(d)
 d[max(d)]
 
-# modularity
+# modularity # Warnings: can take several minutes
 res.mod <- edge.betweenness.community(FULL$All)
 res.mod <- walktrap.community(FULL$All)
 # ...

@@ -72,6 +72,9 @@ get_interaction_from_ORA <- function(query, sources = "GO", organism = "hsapiens
         
         target_id <- (res.ora %>% dplyr::filter(significant == signif.value) %>% dplyr::pull(term_id))
         
+        if(is.null(term_map_tmp)){
+           return(NULL) 
+        }
         term_map <- term_map_tmp %>% 
             dplyr::filter(target %in% target_id) %>% 
             dplyr::select(input, target) %>% unique %>% na.omit()
