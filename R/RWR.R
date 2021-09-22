@@ -61,7 +61,7 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7){
             layers_name <- ifelse(!is.null(names(X)[i]), names(X)[i], "graph")
             
             #multiplex <- RandomWalkRestartMH::create.multiplex(L1 = Xi,Layers_Name=layers_name)
-            multiplex <- RandomWalkRestartMH::create.multiplex(LayersList = Xi,Layers_Name=layers_name)
+            multiplex <- RandomWalkRestartMH::create.multiplex(LayersList = list(L1 = Xi),Layers_Name=layers_name)
             adj_matrix <- RandomWalkRestartMH::compute.adjacency.matrix(x = multiplex, delta = delta)
             adj_matrix_norm <- RandomWalkRestartMH::normalize.multiplex.adjacency(x = adj_matrix) # time/RAM consuming
             
@@ -93,7 +93,8 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7){
         layers_name <- c("graph")
         
         #multiplex <- RandomWalkRestartMH::create.multiplex(L1 = Xi,Layers_Name=layers_name)
-        multiplex <- RandomWalkRestartMH::create.multiplex(LayersList = Xi,Layers_Name=layers_name)
+        multiplex <- RandomWalkRestartMH::create.multiplex(LayersList = list(L1=Xi),Layers_Name=layers_name)
+        
         adj_matrix <- RandomWalkRestartMH::compute.adjacency.matrix(x = multiplex, delta = delta)
         adj_matrix_norm <- RandomWalkRestartMH::normalize.multiplex.adjacency(x = adj_matrix) # time/RAM consuming
         
