@@ -10,22 +10,36 @@ get_graph_stats(X)
 \item{X}{an 'igraph' or 'list.igraph' object}
 }
 \value{
-It returns a long data.frame with number of nodes/edges, and the count of the different attributes
+It returns a long data.frame with number of nodes/edges,
+and the count of the different attributes
 (if X is a list of graph, each row describes a graph)
 }
 \description{
-For a given igraph or list of igraph objects, this function summarize the number of vertices/edges and other vertex attributes.
+For a given igraph or list of igraph objects, this function summarize
+the number of vertices/edges and other vertex attributes.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "-1")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c('A', 'B', 'A', 'D', 'C', 'A', 'C'),
+         to = c('B', 'C', 'D', 'E', 'D', 'F', 'G')), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('A','B','C'), 
+                                  value = '1')
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('D','E'),
+                                  value = '2')
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('F', 'G'),
+                                  value = '-1')
 
 get_graph_stats(graph1)
 
-graph1.list <- list(graph1 = graph1, graph2 = graph1)
+graph1.list <- list(graph1 = graph1, 
+                    graph2 = graph1)
 get_graph_stats(graph1.list)
 
 }

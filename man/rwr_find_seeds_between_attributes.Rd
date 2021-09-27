@@ -9,28 +9,46 @@ rwr_find_seeds_between_attributes(X, seed = NULL, k = 15, attribute = "type")
 \arguments{
 \item{X}{a random walk result from \code{random_walk_restart}}
 
-\item{seed}{a character vector or NULL. If NULL, all the seeds from X are considered.}
+\item{seed}{a character vector or NULL. If NULL, all the seeds from X
+are considered.}
 
 \item{k}{a integer, k closest nodes to consider in the search}
 
-\item{attribute}{a character value or NULL. If NULL, the closest node is returned.}
+\item{attribute}{a character value or NULL.
+If NULL, the closest node is returned.}
 }
 \value{
 A list of igraph object for each seed.
 If X is a list, it returns a list of list of graph.
 }
 \description{
-From rwr results, this function returns a subgraph if any vertex shares different attributes value.
-In biological context, this might be useful to identify vertex shared between clusters or omics types.
+From rwr results, this function returns a subgraph if any vertex shares
+different attributes value.
+In biological context, this might be useful to identify vertex shared between
+clusters or omics types.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+         to = c("B", "C", "D", "E", "D", "F", "G")), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("A","B","C"),
+                                  value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("D","E"),
+                                  value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("F", "G"),
+                                  value = "3")
 
-rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
-rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)
+rwr_res <- random_walk_restart(X = graph1,
+                               seed = c("A", "B", "C", "D", "E"))
+rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, 
+                                                  attribute = "type", 
+                                                  k = 3)
 
 }

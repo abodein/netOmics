@@ -13,21 +13,27 @@ get_interaction_from_database(X, db = NULL, type = "db", user.ego = FALSE)
 
 \item{type}{character added to node metadata}
 
-\item{user.ego}{logical, if user.ego == TRUE looks for first degree neighbors in db and add 'mode' metadata ('core'/'extended')}
+\item{user.ego}{logical, if user.ego == TRUE looks for first degree neighbors
+in db and add 'mode' metadata ('core'/'extended')}
 }
 \value{
 a subset graph of db from X list of nodes
 }
 \description{
-Returns an interaction graph from a vector of nodes (or a list of vectors) and an interaction database (data.frame or igraph)
+Returns an interaction graph from a vector of nodes (or a list of vectors)
+and an interaction database (data.frame or igraph)
 }
 \examples{
 X <- letters[1:4]
 db <- as.data.frame(list(from = sample(letters[1:10], replace = TRUE),
                          to = sample(letters[1:10], replace = TRUE)))
-sub <- get_interaction_from_database(X, db)
-
-db.graph <- igraph::graph_from_data_frame(db, directed=FALSE)
-sub <- get_interaction_from_database(X, db)
+                         
+ sub <- get_interaction_from_database(X, 
+                                      db)
+ 
+ db.graph <- igraph::graph_from_data_frame(db, 
+                                           directed=FALSE)
+ sub <- get_interaction_from_database(X, 
+                                      db)
 
 }

@@ -12,27 +12,32 @@ get_interaction_from_ORA(
 )
 }
 \arguments{
-\item{query}{a vector (or a list) of character with the ID to perform the ORA analysis}
+\item{query}{a vector (or a list) of character with the ID to perform
+the ORA analysis}
 
-\item{sources}{(optional) a character in (GO, KEGG, REAC, TF, MIRNA, CORUM, HP, HPA, WP)}
+\item{sources}{(optional) a character in
+(GO, KEGG, REAC, TF, MIRNA, CORUM, HP, HPA, WP)}
 
-\item{organism}{(optional) a character (default = "hsapiens")}
+\item{organism}{(optional) a character (default = 'hsapiens')}
 
-\item{signif.value}{(optional) a logical, default = ""}
+\item{signif.value}{(optional) a logical, default = ''}
 }
 \value{
-a graph object (or list of graph) containing the interaction between the query and the target terms.
+a graph object (or list of graph) containing the interaction between
+the query and the target terms.
 }
 \description{
 Returns results of an ORA analysis as an interaction graph
 }
 \examples{
-query <- c("IL15", "CDHR5", "TGFA", 'C4B')
-get_interaction_from_ORA(query, sources = "GO")
+query <- c('IL15', 'CDHR5', 'TGFA', 'C4B')
+get_interaction_from_ORA(query, 
+                         sources = 'GO')
 
-query <- list("All" = c("IL15", "CDHR5", "TGFA", 'C4B'),
-              "c1" = c("IL15", "CDHR5", "TGFA"))
-get_interaction_from_ORA(query, sources = "GO")
+query <- list('All' = c('IL15', 'CDHR5', 'TGFA', 'C4B'),
+              'c1' = c('IL15', 'CDHR5', 'TGFA'))
+get_interaction_from_ORA(query, 
+                         sources = 'GO')
 
 }
 \seealso{

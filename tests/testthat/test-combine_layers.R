@@ -1,13 +1,16 @@
 context("combine_layers")
 
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B"), to = c("B", "C")), directed = FALSE)
-graph2 <- igraph::graph_from_data_frame(list(from = c(1), to = c(2)), directed = FALSE)
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c("A", "B"), to = c("B", "C")), directed = FALSE)
+graph2 <- igraph::graph_from_data_frame(
+    list(from = c(1), to = c(2)), directed = FALSE)
 graph3 <- igraph::make_empty_graph(directed = FALSE)
 graph1.1 <- set_vertex_attr(graph1, name = "type", value = 'ty')
 
 interaction.df1 <- as.data.frame(list(from = c("C", "B"), to = c(1, 2)))
 interaction.df2 <- as.data.frame(list(from = c("D", "D"), to = c(3, 4)))
-interaction.df1.graph <- igraph::graph_from_data_frame(as.data.frame(list(from = c("C", "B"), to = c(1, 2))), directed = FALSE)
+interaction.df1.graph <- igraph::graph_from_data_frame(as.data.frame(
+    list(from = c("C", "B"), to = c(1, 2))), directed = FALSE)
 
 
 graph1.list <- list(graph1, graph1)
@@ -19,7 +22,8 @@ graph1.list.named <- list(graph1 = graph1, graph2 = graph1)
 graph2.list.named <- list(graph1 = graph2, graph2 = graph2)
 graph3.list.named <- list(graph2 = graph2, graph1 = graph2)
 graph4.list.named <- list(graph3 = graph2, graph2 = graph2)
-class(graph1.list.named) <- class(graph2.list.named) <- class(graph3.list.named) <- class(graph4.list.named)  <- "list.igraph"
+class(graph1.list.named) <- class(graph2.list.named) <- 
+    class(graph3.list.named) <- class(graph4.list.named)  <- "list.igraph"
 
 
 test_that("get_grn fails on invalid input", {

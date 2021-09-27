@@ -51,7 +51,7 @@ and can be used in conjunction with our previously published package timeOmics.
 For more informnation about the method, please check [@bodein2020interpretation]
 
 In this vignette, we introduced a case study which depict the main steps to 
-create and explore multi-omics networks from multi-omics time course data.
+create and explore multi-omics networks from multi-omics time-course data.
 
 # Requirements
 
@@ -88,7 +88,8 @@ library(igraph)
 The package will be illustrated on longitudinal MO dataset to study 
 the seasonality of MO expression in patients with diabetes [@sailani2020deep].
 
-The data used in this vignette is a subset of the data available at: https://github.com/aametwally/ipop_seasonal
+The data used in this vignette is a subset of the data available at: 
+https://github.com/aametwally/ipop_seasonal
 
 We focused on a single individual with 7 timepoints.
 6 different omics were sampled 
@@ -113,7 +114,8 @@ In addition, timeOmics can identify a multi-omics signature of the clusters.
 These molecules can be, for example, the starting points of the propogation 
 analysis.
 
-For more informations about *timeOmics*, please check http://www.bioconductor.org/packages/release/bioc/html/timeOmics.html
+For more informations about *timeOmics*, please 
+check http://www.bioconductor.org/packages/release/bioc/html/timeOmics.html
 
 As illustrated in the R chunk below the timeOmics step includes:
 
@@ -180,10 +182,11 @@ cluster.info <- hmp_T2D$getCluster.res
 # Network building
 
 Each layer of the network is built sequentially and then assembled 
-in a second part.
+in a second section.
 
-All functions in the package can be used on one element or a list of elements.
-In the longitudinal context of the data, kinetic cluster subnetworks are built 
+All the functions in the package can be used on one element or a list of 
+elements.
+In the longitudinal context of the data, kinetic cluster sub-networks are built 
 plus a global network
 (`1`, `-1` and `All`).
 
@@ -215,14 +218,14 @@ get_graph_stats(graph.rna)
 
 As for the genes, the second layer is a protein layer (Protein-Protein 
 Interaction).
-This time, any inference is performed. Instead, known interactions are extracted
+This time, no inference is performed. Instead, known interactions are extracted
 from a database of interaction (BIOGRID).
 
 The function `get_interaction_from_database` will fetch the interactions from a 
 database provided as a `data.frame` (with columns `from` and `to`) or a graph 
 (`igraph` object).
 In addition to the interactions between the indicated molecules, the first 
-degree neighbours can also be collected (option `user.ego = TRUE`)
+degree neighbors can also be collected (option `user.ego = TRUE`)
 
 
 ```{r PROT_graph, warning=FALSE}
@@ -252,7 +255,8 @@ Another way to compute networks from expression data is to use other inference
 methods.
 In the following chunk, we intend to illustrate the use of the SparCC algorithm
 [@friedman2012inferring] on the gut data and how it can be integrate into the 
-pipeline.
+pipeline. 
+(sparcc is not included in this package)
 
 
 ```{r GUT_graph, eval = FALSE}
@@ -330,7 +334,7 @@ profiles between 2 layers when any interaction is known.
 
 The function `combine_layers` enables the fusion of different network layers.
 It combines the network (or list of network) in `graph1` with the network
-(or list of network) in `graph2`, based on the shared verticees between
+(or list of network) in `graph2`, based on the shared vertices between
 the networks.
 
 Additionally, the user can provide an interaction table `interaction.df`
@@ -430,14 +434,18 @@ full.graph <- combine_layers(graph1 = full.graph,
 
 # Addition of supplemental layers
 
-For the interpretation of the MO integration results, the use of additional information layers or molecules can be useful to enrich the network.
+For the interpretation of the MO integration results, the use of additional 
+information layers or molecules can be useful to enrich the network.
 
 ## Over Representation Analysis
 
 ORA is a common step to include knowledge.
-The function `get_interaction_from_ORA` perform the ORA analysis from the desired molecules and return an interaction graph with the enriched terms and the corresponding molecules.
+The function `get_interaction_from_ORA` perform the ORA analysis from the 
+desired molecules and return an interaction graph with the enriched terms and 
+the corresponding molecules.
 
-Then, the interaction graph with the new vertices can be linked to the network as illustrated in the previous step.
+Then, the interaction graph with the new vertices can be linked to the network 
+as illustrated in the previous step.
 
 Here, ORA was performed with RNA, PROT, and CYTO against the Gene Ontology.
 
@@ -559,7 +567,7 @@ get_graph_stats(FULL)
 
 ## Basics network exploration
 
-We can use basics graph statistics to explore the network such as degree 
+We can use basic graph statistics to explore the network such as degree 
 distribution, modularity, and short path.
 
 ```{r, eval = FALSE}
@@ -579,7 +587,7 @@ sp <- shortest.paths(FULL$All)
 
 ## Random walk with restart
 
-RWR is a powerful tool to explore the MO networks which simulates a particule 
+RWR is a powerful tool to explore the MO networks which simulates a particle 
 that randomly walk on the network.
 From a starting point (`seed`) it ranks the other vertices based on their
 proximity with the seed and the network structure.
@@ -601,7 +609,7 @@ rwr_res <- random_walk_restart(FULL, seeds)
 ### Find vertices with specific attributes
 
 After the RWR analysis, we implemented several functions to extract valuable
-informations.
+information.
 
 To identify MO molecular functions, the seed can be a GO term and we are 
 interested to identify vertices with different omics type within the 
@@ -675,6 +683,5 @@ seeds <- V(FULL$All)$name[V(FULL$All)$type %in% c("GO", "Disease")]
 ```{r}
 sessionInfo()
 ```
-
 
 # References

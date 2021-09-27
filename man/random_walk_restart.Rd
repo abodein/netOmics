@@ -11,28 +11,45 @@ random_walk_restart(X, seed = NULL, r = 0.7)
 
 \item{seed}{a character vector. Only seeds present in X are considered.}
 
-\item{r}{a numeric value between 0 and 1. It sets the probability of restarting to a seed node after each step.}
+\item{r}{a numeric value between 0 and 1.
+It sets the probability of restarting to a seed node after each step.}
 }
 \value{
-Each element of X returns a list (class = 'rwr') containing the following elements:
+Each element of X returns a list (class = 'rwr')
+containing the following elements:
 \item{rwr}{a \code{data.frame}, the RWR results for each valid seed.}
 \item{seed}{a character vector with the valid seeds}
 \item{graph}{\code{igraph} object from X}
 If X is a \code{list.igraph}, the returned object is a \code{list.rwr}.
 }
 \description{
-This function performs a propagation analysis by random walk with restart in a multi-layered network from specific seeds.
+This function performs a propagation analysis by random walk with restart
+in a multi-layered network from specific seeds.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c('A', 'B', 'A', 'D', 'C', 'A', 'C'), 
+         to = c('B', 'C', 'D', 'E', 'D', 'F', 'G')), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('A','B','C'),
+                                  value = '1')
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('D','E'),
+                                  value = '2')
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c('F', 'G'),
+                                  value = '3')
 
-rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
+rwr_res <- random_walk_restart(X = graph1, 
+                               seed = c('A', 'B', 'C', 'D', 'E'))
 
 }
 \seealso{
-\code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}}, \code{\link[netOmics]{rwr_find_seeds_between_attributes}}, \code{\link[netOmics]{rwr_find_closest_type}}
+\code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}},
+\code{\link[netOmics]{rwr_find_seeds_between_attributes}},
+\code{\link[netOmics]{rwr_find_closest_type}}
 }

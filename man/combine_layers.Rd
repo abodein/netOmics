@@ -9,9 +9,11 @@ combine_layers(graph1, graph2 = NULL, interaction.df = NULL)
 \arguments{
 \item{graph1}{an igraph object or list of igraph (\code{list.igraph}).}
 
-\item{graph2}{an igraph object or list of igraph (\code{list.igraph}) with the same length as \code{graph1}.}
+\item{graph2}{an igraph object or list of igraph (\code{list.igraph}) with
+the same length as \code{graph1}.}
 
-\item{interaction.df}{(optional) a 2 colomns data.frame (from, to) describing the edges between vertices from both graphs.}
+\item{interaction.df}{(optional) a 2 colomns data.frame (from, to)
+describing the edges between vertices from both graphs.}
 }
 \value{
 a merged graph with both vertex attributes from graph1 and graph2.
@@ -20,19 +22,24 @@ a merged graph with both vertex attributes from graph1 and graph2.
 Return a merged graph from two graph layers.
 }
 \details{
-If \code{graph2} is a single graph, it will be merged to each element of \code{graph1} (\code{igraph} or \code{list.igraph}).
+If \code{graph2} is a single graph, it will be merged to each element of
+\code{graph1} (\code{igraph} or \code{list.igraph}).
 
-If \code{graph2} is a list of graph (\code{list.igraph}), each element of \code{graph1} and each element of \code{graph2} are merged in pairs.
+If \code{graph2} is a list of graph (\code{list.igraph}), each element of
+\code{graph1} and each element of \code{graph2} are merged in pairs.
 
-Optionally, \code{interaction.df} should be provide if any vertex are shared between graphs. It can also be used to extend the first graph.
+Optionally, \code{interaction.df} should be provide if any vertex are shared
+between graphs. It can also be used to extend the first graph.
 
-In both scenarios, vertex attributes are kept. If a vertex attribute is missing from graph1 or graph2, NULL value is added.
-Otherwise, if there is an overlap between attribute values for the same vertex, attribute from graph2 is dropped.
+In both scenarios, vertex attributes are kept. If a vertex attribute is
+missing from graph1 or graph2, NULL value is added.
+Otherwise, if there is an overlap between attribute values for the same
+vertex, attribute from graph2 is dropped.
 }
 \examples{
 # with single graphs
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B"),
-                                             to = c("B", "C")),
+graph1 <- igraph::graph_from_data_frame(list(from = c('A', 'B'),
+                                             to = c('B', 'C')),
                                         directed = FALSE)
 graph2 <- igraph::graph_from_data_frame(list(from = c(1), 
                                              to = c(2)),
@@ -43,7 +50,7 @@ res <- combine_layers(graph1 = graph1,
 # with list of graphs
 graph1.list <- list(graph1, graph1)
 graph2.list <- list(graph2, graph2)
-class(graph1.list) <- class(graph2.list) <- "list.igraph"
+class(graph1.list) <- class(graph2.list) <- 'list.igraph'
 
 res <- combine_layers(graph1 = graph1.list, 
                       graph2 = graph2)
@@ -51,7 +58,7 @@ res <- combine_layers(graph1 = graph1.list,
                       graph2 = graph2.list)
 
 # with interaction dataframe
-interaction.df1 <- as.data.frame(list(from = c("C", "B"), to = c(1, 2)))
+interaction.df1 <- as.data.frame(list(from = c('C', 'B'), to = c(1, 2)))
 res <- combine_layers(graph1 = graph1.list, 
                       graph2 = graph2, 
                       interaction.df = interaction.df1)

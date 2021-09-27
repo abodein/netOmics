@@ -9,30 +9,48 @@ rwr_find_closest_type(X, seed = NULL, attribute = NULL, value = NULL, top = 1)
 \arguments{
 \item{X}{a random walk result from \code{random_walk_restart}}
 
-\item{seed}{a character vector or NULL. If NULL, all the seeds from X are considered.}
+\item{seed}{a character vector or NULL. If NULL, all the seeds
+from X are considered.}
 
-\item{attribute}{a character value or NULL. If NULL, the closest node is returned.}
+\item{attribute}{a character value or NULL. If NULL,
+the closest node is returned.}
 
-\item{value}{a character value or NULL. If NULL, the closest node for a given attribute is returned.}
+\item{value}{a character value or NULL. If NULL, the closest node for a given
+attribute is returned.}
 
 \item{top}{a numeric value, the top closest nodes to extract}
 }
 \value{
-A list of \code{data.frame} for each seed containing the closest nodes per seed and their vertex attributes.
+A list of \code{data.frame} for each seed containing the closest nodes per
+seed and their vertex attributes.
 If X is \code{list.rwr}, the returned value is a list of list.
 }
 \description{
-From a rwr results, this function returns the closest nodes from a seed with a given attribute and value.
-In biological context, it might be useful to get the closest Gene Ontology annotation nodes from unannotated seeds.
+From a rwr results, this function returns the closest nodes from a seed with
+a given attribute and value.
+In biological context, it might be useful to get the closest Gene Ontology
+annotation nodes from unannotated seeds.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+         to = c("B", "C", "D", "E", "D", "F", "G")), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("A","B","C"),
+                                  value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("D","E"),
+                                  value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("F", "G"),
+                                  value = "3")
 
-rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
-rwr_find_closest_type(X=rwr_res, attribute = "type", seed = "A")
-
+rwr_res <- random_walk_restart(X = graph1,
+                               seed = c("A", "B", "C", "D", "E"))
+rwr_find_closest_type(X=rwr_res, attribute = "type", 
+                      seed = "A")
 }

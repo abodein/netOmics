@@ -10,8 +10,10 @@ get_go_info(go)
 \item{go}{a character, GO term}
 }
 \value{
-a data.frame with the following columns: "GOID", "DEFINITION", "ONTOLOGY", "TERM"
+a data.frame with the following columns: 'GOID', 'DEFINITION',
+'ONTOLOGY', 'TERM'
 }
 \description{
-From a GO terms (GOID), return definition, ontology and term values from GO.db
+From a GO terms (GOID), return definition, ontology and term values
+from GO.db
 }

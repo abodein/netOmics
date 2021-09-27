@@ -9,11 +9,13 @@ plot_rwr_subnetwork(X, color = NULL, plot = TRUE, legend = TRUE, ...)
 \arguments{
 \item{X}{an igraph object}
 
-\item{color}{(optional) a named character vector or list, list of color to apply to each type}
+\item{color}{(optional) a named character vector or list, list of color
+to apply to each type}
 
 \item{plot}{logical, if TRUE then the plot is produced}
 
-\item{legend}{(optional) logical, if TRUE then the legend is displayed with number of veretices/edges and the number of nodes of specific type.}
+\item{legend}{(optional) logical, if TRUE then the legend is displayed
+with number of veretices/edges and the number of nodes of specific type.}
 
 \item{...}{Arguments to be passed to the plot method}
 }
@@ -21,19 +23,34 @@ plot_rwr_subnetwork(X, color = NULL, plot = TRUE, legend = TRUE, ...)
 X is returned with additional vertex attributes
 }
 \description{
-Display the subgraph from a RWR results. This function colors adds a specific color to each node based on their 'type' attribute.
-It also adds a legend including the number of vertices/edges and the number of nodes of specific type.
+Display the subgraph from a RWR results. This function colors adds a specific
+color to each node based on their 'type' attribute.
+It also adds a legend including the number of vertices/edges and the number
+of nodes of specific type.
 Additionally, the function can display any igraph object.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+         to = c("B", "C", "D", "E", "D", "F", "G")), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1,
+                                  name = 'type', 
+                                  index = c("A","B","C"),
+                                  value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("D","E"),
+                                  value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("F", "G"),
+                                  value = "3")
 
-rwr_res <- random_walk_restart(X = graph1, seed = c("A"))
-rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type")
+rwr_res <- random_walk_restart(X = graph1, 
+                               seed = c("A"))
+rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, 
+                                                  attribute = "type")
 
 plot_rwr_subnetwork(rwr_res_type$A)
 

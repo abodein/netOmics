@@ -11,7 +11,7 @@ get_ORA(query, sources = NULL, organism = "hsapiens")
 
 \item{sources}{a character or list of character}
 
-\item{organism}{a character (default = "hsapiens")}
+\item{organism}{a character (default = 'hsapiens')}
 }
 \value{
 a data.frame containing the enrichment result

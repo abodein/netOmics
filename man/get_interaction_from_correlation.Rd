@@ -11,21 +11,25 @@ get_interaction_from_correlation(X, Y, threshold = 0.5)
 
 \item{Y}{a data.frame or list of data.frame (with a similar number of row).}
 
-\item{threshold}{a threshold to cut the correlation matrix above which a link is created between a feature from X and a feature from Y.}
+\item{threshold}{a threshold to cut the correlation matrix above which a link
+is created between a feature from X and a feature from Y.}
 }
 \value{
 an 'igraph' object
 }
 \description{
 Compute correlation between two dataframe X and Y (or list of data.frame).
-An incidence graph is returned. A link between two features is produced if their correlation (absolute value) is above the threshold.
+An incidence graph is returned. A link between two features is produced
+if their correlation (absolute value) is above the threshold.
 }
 \examples{
 X <- matrix(rexp(200, rate=.1), ncol=20)
 Y <- matrix(rexp(200, rate=.1), ncol=20)
 get_interaction_from_correlation(X,Y)
 
-X <- list(matrix(rexp(200, rate=.1), ncol=20), matrix(rexp(200, rate=.1), ncol=20))
+X <- list(matrix(rexp(200, rate=.1), ncol=20), 
+          matrix(rexp(200, rate=.1), ncol=20))
 Y <- matrix(rexp(200, rate=.1), ncol=20)
 get_interaction_from_correlation(X,Y)
+
 }

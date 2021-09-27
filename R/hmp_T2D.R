@@ -1,6 +1,6 @@
 #' hmp_T2D
 #' 
-#' This dataset contained a list of data.frmes.
+#' This dataset contained a list of data.frames.
 #' Raw data is a subset of the data available at: https://github.com/aametwally/ipop_seasonal
 #' The package will be illustrated on longitudinal MO dataset to study the seasonality of MO expression in patients with diabetes (see `netOmics` vignette).
 #' In this subset we focused on a single individual with 7 timepoints.

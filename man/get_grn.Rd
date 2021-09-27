@@ -7,9 +7,11 @@
 get_grn(X, cluster = NULL, method = c("aracne"), type = "gene")
 }
 \arguments{
-\item{X}{a \code{data.frame}/\code{matrix} with gene expression (genes in columns, samples in rows).}
+\item{X}{a \code{data.frame}/\code{matrix} with gene expression
+(genes in columns, samples in rows).}
 
-\item{cluster}{(optional) clustering result from \code{\link[timeOmics]{getCluster}}}
+\item{cluster}{(optional) clustering result from
+\code{\link[timeOmics]{getCluster}}}
 
 \item{method}{network building method, one of c('aracne')}
 
@@ -17,25 +19,33 @@ get_grn(X, cluster = NULL, method = c("aracne"), type = "gene")
 }
 \value{
 An igraph object if no cluster informations are given.
-Otherwise, it returns a list of igraph object (\code{list.igraph}) with a subgraph for each cluster and a global graph with all the genes.
+Otherwise, it returns a list of igraph object (\code{list.igraph}) with
+a subgraph for each cluster and a global graph with all the genes.
 }
 \description{
 Get Gene Regulatory Network (GRN) from a data.frame.
-Optionally, if the gene are clustered, sub_network are build for each cluster.
+Optionally, if the gene are clustered, sub_network are build for
+each cluster.
 }
 \details{
 Methods of GRN reconstruction are as follows:
-'aracne': use ARACNe algorithm on Mutual Information (MI) adjency matrix to remove low MI edges in triangles.
+'aracne': use ARACNe algorithm on Mutual Information (MI) adjency matrix
+to remove low MI edges in triangles.
 }
 \examples{
 data(hmp_T2D)
 # grn only on gene
-cluster.mRNA <- timeOmics::getCluster(hmp_T2D$getCluster.res, user.block = "RNA")
+cluster.mRNA <- timeOmics::getCluster(hmp_T2D$getCluster.res, 
+                                      user.block = 'RNA')
 X <- hmp_T2D$raw$RNA
-grn.res <- get_grn(X = hmp_T2D$raw$RNA, cluster = cluster.mRNA, method = "aracne")
+grn.res <- get_grn(X = hmp_T2D$raw$RNA, 
+                   cluster = cluster.mRNA, 
+                   method = 'aracne')
 
 
 }
 \seealso{
-\code{\link[minet]{build.mim}}, \code{\link[minet]{aracne}}, \code{\link[timeOmics]{getCluster}}
+\code{\link[minet]{build.mim}},
+\code{\link[minet]{aracne}},
+\code{\link[timeOmics]{getCluster}}
 }

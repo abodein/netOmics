@@ -1,12 +1,12 @@
 Package: netOmics
 Title: Multi-Omics (time-course) network-based integration and interpretation
-Version: 0.99.9
+Version: 0.99.10
 Authors@R: 
     person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
 Description: netOmics is a multi-omics networks builder and explorer.
     It uses a combination of network inference algorithms and and knowledge-based graphs to build multi-layered networks.
     The package can be combined with timeOmics to incorporate time-course expression data and build sub-networks from multi-omics kinetic clusters.
-    Finally, from the generated multi-omics networks, propogation analyses allow the identification of missing biological functions (1), 
+    Finally, from the generated multi-omics networks, propagation analyses allow the identification of missing biological functions (1), 
     multi-omics mechanisms (2) and molecules between kinetic clusters (3). This helps to resolve complex regulatory mechanisms.
 License: GPL-3
 Encoding: UTF-8

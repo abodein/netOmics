@@ -13,13 +13,17 @@ summary_plot_rwr_attributes(
 )
 }
 \arguments{
-\item{X}{a 'rwr.attributes' or 'list.rwr.attributes' object from rwr_find_seeds_between_attributes()}
+\item{X}{a 'rwr.attributes' or 'list.rwr.attributes' object
+from rwr_find_seeds_between_attributes()}
 
-\item{color}{(optional) a named character vector or list, list of color to apply to each type}
+\item{color}{(optional) a named character vector or list,
+list of color to apply to each type}
 
-\item{seed.id}{(optional) a character vector, to filter the results and filter on specific seeds IDs}
+\item{seed.id}{(optional) a character vector, to filter the results and
+filter on specific seeds IDs}
 
-\item{seed.type}{(optional) a character vector, to filter the results and filter on specific seeds types}
+\item{seed.type}{(optional) a character vector, to filter the results and
+filter on specific seeds types}
 
 \item{plot}{logical, if TRUE then the plot is produced}
 }
@@ -27,22 +31,39 @@ summary_plot_rwr_attributes(
 a 'ggplot' object
 }
 \description{
-Based on the results of \code{\link[netOmics]{rwr_find_seeds_between_attributes}} which identify the closest k neighbors from a seed,
-this function returns a barplot of the node types (layers) reached for each seed.
+Based on the results of
+\code{\link[netOmics]{rwr_find_seeds_between_attributes}} which identify the
+closest k neighbors from a seed, this function returns a barplot of the node
+types (layers) reached for each seed.
 }
 \examples{
-graph1 <- igraph::graph_from_data_frame(list(from = c("A", "B", "A", "D", "C", "A", "C"), 
-                                             to = c("B", "C", "D", "E", "D", "F", "G")), directed = FALSE)
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("A","B","C"),value = "1")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("D","E"),value = "2")
-graph1 <- igraph::set_vertex_attr(graph = graph1, name = 'type', index = c("F", "G"),value = "3")
+graph1 <- igraph::graph_from_data_frame(
+    list(from = c("A", "B", "A", "D", "C", "A", "C"), 
+         to = c("B", "C", "D", "E", "D", "F", "G")), 
+    directed = FALSE)
+graph1 <- igraph::set_vertex_attr(graph = graph1, 
+                                  name = 'type', 
+                                  index = c("A","B","C"),
+                                  value = "1")
+graph1 <- igraph::set_vertex_attr(graph = graph1,
+                                  name = 'type', 
+                                  index = c("D","E"),
+                                  value = "2")
+graph1 <- igraph::set_vertex_attr(graph = graph1,
+                                  name = 'type', 
+                                  index = c("F", "G"),
+                                  value = "3")
 
-rwr_res <- random_walk_restart(X = graph1, seed = c("A", "B", "C", "D", "E"))
-rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, attribute = "type", k = 3)
+rwr_res <- random_walk_restart(X = graph1, 
+                               seed = c("A", "B", "C", "D", "E"))
+rwr_res_type <- rwr_find_seeds_between_attributes(X = rwr_res, 
+                                                  attribute = "type",
+                                                  k = 3)
 summary_plot_rwr_attributes(rwr_res_type)
 
 
 }
 \seealso{
-\code{\link[netOmics]{random_walk_restart}}, \code{\link[netOmics]{rwr_find_seeds_between_attributes}}
+\code{\link[netOmics]{random_walk_restart}},
+\code{\link[netOmics]{rwr_find_seeds_between_attributes}}
 }
