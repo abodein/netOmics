@@ -192,9 +192,8 @@ get_ORA <- function(query, sources = NULL, organism = "hsapiens") {
                 mutate(cluster = "All") %>%
                 dplyr::select(
                     "cluster", "term_id", "source", "term_name", "p_value", 
-                    "significant", "term_size", "query_size", "intersection_size",
-                    "precision", "recall"
-                )
+                    "significant", "term_size", "query_size", 
+                    "intersection_size", "precision", "recall")
             RES <- ORA.res
         } else {
             RES <- NULL

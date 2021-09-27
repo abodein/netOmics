@@ -112,7 +112,8 @@ combine_layers <- function(graph1,
                                        interaction.graph.induced)
         }
         
-        # case3: graph1 is a list and graph2 is a single graph (+ interaction.df)
+        # case3: graph1 is a list and graph2 is a single graph 
+        # (+ interaction.df)
     } else if (is(graph1, "list.igraph") & is(graph2, "igraph")) {
         merged.res <- purrr::map(graph1, ~{
             merge_graphs(.x, graph2)
