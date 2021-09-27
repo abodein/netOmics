@@ -28,6 +28,6 @@ test_that("get_ORA works", {
     expect_is(get_ORA(query), "data.frame")
 })
 
-test_that("get_go_info works", {
-    expect_is(get_go_info("GO:0044216"), "data.frame")
-})
+# test_that("get_go_info works", {
+#     expect_is(get_go_info("GO:0044216"), "data.frame")
+# })

@@ -1,6 +1,6 @@
 Package: netOmics
 Title: Multi-Omics (time-course) network-based integration and interpretation
-Version: 0.99.10
+Version: 0.99.11
 Authors@R: 
     person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
 Description: netOmics is a multi-omics networks builder and explorer.
