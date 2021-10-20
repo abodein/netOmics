@@ -17,7 +17,7 @@ output:
   BiocStyle::html_document
   
 vignette: >
-  %\VignetteIndexEntry{timeOmics}
+  %\VignetteIndexEntry{netOmics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 
@@ -577,7 +577,6 @@ hist(d)
 d[max(d)]
 
 # modularity # Warnings: can take several minutes
-res.mod <- edge.betweenness.community(FULL$All)
 res.mod <- walktrap.community(FULL$All)
 # ...
 

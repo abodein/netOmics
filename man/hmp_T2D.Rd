@@ -22,9 +22,13 @@ hmp_T2D
 }
 \description{
 This dataset contained a list of data.frames.
-Raw data is a subset of the data available at: https://github.com/aametwally/ipop_seasonal
-The package will be illustrated on longitudinal MO dataset to study the seasonality of MO expression in patients with diabetes (see \code{netOmics} vignette).
+Raw data is a subset of the data available at:
+https://github.com/aametwally/ipop_seasonal
+The package will be illustrated on longitudinal MO dataset to study the
+seasonality of MO expression in patients with diabetes
+(see \code{netOmics} vignette).
 In this subset we focused on a single individual with 7 timepoints.
-Briefly 6 different omics were sampled (RNA, proteins, cytokines, gut microbiome, metabolites and clinical variables).
+Briefly 6 different omics were sampled (RNA, proteins, cytokines,
+gut microbiome, metabolites and clinical variables).
 }
 \keyword{datasets}

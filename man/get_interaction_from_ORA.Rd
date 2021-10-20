@@ -31,12 +31,12 @@ Returns results of an ORA analysis as an interaction graph
 }
 \examples{
 query <- c('IL15', 'CDHR5', 'TGFA', 'C4B')
-get_interaction_from_ORA(query, 
+get_interaction_from_ORA(query,
                          sources = 'GO')
 
 query <- list('All' = c('IL15', 'CDHR5', 'TGFA', 'C4B'),
               'c1' = c('IL15', 'CDHR5', 'TGFA'))
-get_interaction_from_ORA(query, 
+get_interaction_from_ORA(query,
                          sources = 'GO')
 
 }
