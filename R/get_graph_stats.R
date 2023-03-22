@@ -36,7 +36,7 @@
 #' 
 #' @importFrom minet build.mim aracne
 #' @importFrom magrittr %>%
-#' @importFrom dplyr select
+#' @importFrom dplyr select all_of
 #' @importFrom purrr imap_dfr
 #' @importFrom igraph set_vertex_attr graph_from_adjacency_matrix
 #' @export
@@ -82,7 +82,10 @@ get_graph_stats <- function(X) {
             vertex_attr(X),
             check.names = FALSE
         ) %>%
-            dplyr::select(item)
+          # tidyselect deprecation was:
+            # dplyr::select(item)
+            # Now:
+            dplyr::select(dplyr::all_of(item))
         for (i in item) {
             tmp <- as.list(table(vertex.attr.res[[i]]))
             for (j in names(tmp)) {

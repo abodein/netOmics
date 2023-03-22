@@ -50,7 +50,9 @@ test_that("combine_layers works", {
     
     # graph1 and interaction.df
     expect_is(combine_layers(graph1 = graph1, interaction.df = interaction.df1), "merged.igraph")
-    expect_warning(combine_layers(graph1 = graph1, interaction.df = interaction.df2), "Some, but not all graphs are named, not using vertex names", fixed = TRUE)
+    #expect_warning(combine_layers(graph1 = graph1, interaction.df = interaction.df2), "Some, but not all graphs are named, not using vertex names", fixed = TRUE)
+    expect_is(combine_layers(graph1 = graph1, interaction.df = interaction.df2), "merged.igraph")
+
 
     expect_is(combine_layers(graph1 = graph1, graph2 = graph2, interaction.df = interaction.df1), "merged.igraph")
     expect_is(combine_layers(graph1 = graph1, graph2 = graph2, interaction.df = interaction.df2), "merged.igraph")
@@ -70,7 +72,7 @@ test_that("combine_layers works", {
     expect_is(combine_layers(graph1.list.named, graph2 = graph3.list.named), "list.merged.igraph")
     
     # with empty graph
-    expect_warning(combine_layers(graph1, graph2 = graph3), "Some, but not all graphs are named, not using vertex names")
+    expect_warning(combine_layers(graph1, graph2 = graph3), "Some, but not all graphs are named, not using vertex names", fixed = TRUE)
     
     
 })

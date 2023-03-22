@@ -485,7 +485,7 @@ rwr_find_closest_type <- function(X,
     return(res)
 }
 
-#' @importFrom dplyr filter top_n left_join select everything
+#' @importFrom dplyr filter top_n left_join select everything across mutate
 #' @importFrom purrr map_dfr
 #' @importFrom tidyr pivot_longer
 .rwr_find_closest <- function(rwr, user.attribute, user.value, seed, top){
@@ -498,8 +498,11 @@ rwr_find_closest_type <- function(X,
                                                 names_to = "attribute", 
                                                 values_to = "value", 
                                                 -c(NodeNames, Score, SeedName),
-                                                values_ptypes = 
-                                                    list(value=character()))
+                                                #values_ptypes = 
+                                                #    list(value=character())
+                                                ) %>% 
+          dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+        
         if(!is.null(user.attribute)){
             rwr.res.filtered <- dplyr::filter(rwr.res.filtered, 
                                               attribute == user.attribute)

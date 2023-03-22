@@ -117,7 +117,6 @@ test_that("rwr_find_closest_type works", {
     expect_is(rwr_find_closest_type(X=rwr_res, value = "test"), "rwr.closest")
     
     expect_is(rwr_find_closest_type(X=rwr_res, seed = "Z"), "rwr.closest")
-    
     expect_is(rwr_find_closest_type(X=rwr_res.list, seed = "Z"), "list.rwr.closest")
     
 })
