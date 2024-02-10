@@ -87,8 +87,9 @@ get_grn <- function(X,
         # for all
         mim <- minet::build.mim(X)
         grn.adj <- minet::aracne(mim)
-        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj, 
-                                                         mode = "undirected")
+        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj) %>% 
+          as.undirected()
+                                                         
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, 
                                              name = "type", 
                                              value = type)
