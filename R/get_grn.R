@@ -42,7 +42,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select
 #' @importFrom purrr map
-#' @importFrom igraph set_vertex_attr graph_from_adjacency_matrix
+#' @importFrom igraph set_vertex_attr graph_from_adjacency_matrix as.undirected
 #' @export
 get_grn <- function(X, 
                     cluster = NULL, 
@@ -88,7 +88,7 @@ get_grn <- function(X,
         mim <- minet::build.mim(X)
         grn.adj <- minet::aracne(mim)
         grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj) %>% 
-          as.undirected()
+          igraph::as.undirected()
                                                          
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, 
                                              name = "type", 
@@ -118,8 +118,8 @@ get_grn <- function(X,
             mim.cluster <- minet::build.mim(X.by.cluster[[i]])
             grn.adj.cluster <- minet::aracne(mim.cluster)
             grn.graph.cluster <- igraph::graph_from_adjacency_matrix(
-                grn.adj.cluster, 
-                mode = "undirected")
+                grn.adj.cluster) %>% 
+              igraph::as.undirected()
             grn.graph.cluster <- igraph::set_vertex_attr(
                 graph = grn.graph.cluster, 
                 name = "type", 

@@ -380,7 +380,7 @@ interaction_df_gut <- get_interaction_from_correlation(X = omic_data,
 
 # and merge with full graph
 full.graph <- combine_layers(graph1 = full.graph,
-                             graph2 = graph.gut,
+                             graph2 = hmp_T2D$graph.gut,
                              interaction.df = interaction_df_gut$All)
 ```
 
@@ -405,7 +405,7 @@ interaction_df_clinical <- get_interaction_from_correlation(X = omic_data
 
 # and merge with full graph
 full.graph <- combine_layers(graph1 = full.graph,
-                             graph2 = graph.clinical, 
+                             graph2 = hmp_T2D$graph.clinical, 
                              interaction.df = interaction_df_clinical$All)
 ```
 
