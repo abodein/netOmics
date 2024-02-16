@@ -190,12 +190,12 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7) {
     return(res)
 }
 
-#' @importFrom igraph delete.vertices simplify degree
+#' @importFrom igraph delete_vertices simplify degree
 remove_unconnected_nodes <- function(X) {
     # remove unconnected nodes but does not simplify
     X.simplified <- igraph::simplify(X)
     isolated_nodes = which(igraph::degree(X.simplified) == 0)
-    X = igraph::delete.vertices(X, isolated_nodes)
+    X = igraph::delete_vertices(X, isolated_nodes)
     return(X)
 }
 

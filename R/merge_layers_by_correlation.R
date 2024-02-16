@@ -23,7 +23,7 @@
 #' Y <- matrix(rexp(200, rate=.1), ncol=20)
 #' get_interaction_from_correlation(X,Y)
 #' 
-#' @importFrom igraph graph_from_incidence_matrix simplify
+#' @importFrom igraph graph_from_biadjacency_matrix simplify
 #' @importFrom stats cor
 
 #' @export
@@ -66,7 +66,7 @@ get_interaction_from_correlation <- function(X,
         threshold
     
     # graph
-    res.graph <- igraph::graph_from_incidence_matrix(corr.graph, 
+    res.graph <- igraph::graph_from_biadjacency_matrix(corr.graph, 
                                                      directed = FALSE)
     res.graph <- igraph::simplify(res.graph)
     

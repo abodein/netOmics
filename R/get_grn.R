@@ -66,8 +66,8 @@ get_grn <- function(X,
         # no clusteing info -> perform grn on all molecules
         mim <- minet::build.mim(X)
         grn.adj <- minet::aracne(mim)
-        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj, 
-                                                         mode = "undirected")
+        grn.graph <- igraph::graph_from_adjacency_matrix(grn.adj) %>% 
+          igraph::as.undirected()
         
         # add type attribute 'type' <- 'Gene'
         grn.graph <- igraph::set_vertex_attr(graph = grn.graph, 
