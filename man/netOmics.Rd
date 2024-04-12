@@ -2,6 +2,7 @@
 % Please edit documentation in R/netOmics-package.R
 \docType{package}
 \name{netOmics}
+\alias{netOmics-package}
 \alias{netOmics}
 \title{netOmics: network-based multi-omics integration and interpretation}
 \description{
@@ -73,3 +74,15 @@ Additionally, the function can display any igraph object.}
 }
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/abodein/netOmics}
+  \item Report bugs at \url{https://github.com/abodein/netOmics/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Antoine Bodein \email{antoine.bodein.1@ulaval.ca}
+
+}

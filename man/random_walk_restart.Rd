@@ -49,7 +49,6 @@ rwr_res <- random_walk_restart(X = graph1,
 
 }
 \seealso{
-\code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}},
 \code{\link[netOmics]{rwr_find_seeds_between_attributes}},
 \code{\link[netOmics]{rwr_find_closest_type}}
 }

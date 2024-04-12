@@ -17,7 +17,7 @@
 #' If X is a \code{list.igraph}, the returned object is a \code{list.rwr}.
 #' 
 #' @seealso 
-#' \code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}}, 
+# \code{\link[RandomWalkRestartMH]{Random.Walk.Restart.Multiplex}}, 
 #' \code{\link[netOmics]{rwr_find_seeds_between_attributes}}, 
 #' \code{\link[netOmics]{rwr_find_closest_type}}
 #' 
@@ -42,10 +42,10 @@
 #' rwr_res <- random_walk_restart(X = graph1, 
 #'                                seed = c('A', 'B', 'C', 'D', 'E'))
 #' 
-#' @importFrom RandomWalkRestartMH create.multiplex
-#' @importFrom RandomWalkRestartMH compute.adjacency.matrix
-#' @importFrom RandomWalkRestartMH normalize.multiplex.adjacency 
-#' @importFrom RandomWalkRestartMH Random.Walk.Restart.Multiplex
+# @importFrom RandomWalkRestartMH create.multiplex
+# @importFrom RandomWalkRestartMH compute.adjacency.matrix
+# @importFrom RandomWalkRestartMH normalize.multiplex.adjacency 
+# @importFrom RandomWalkRestartMH Random.Walk.Restart.Multiplex
 #' @importFrom dplyr mutate left_join
 #' @importFrom purrr imap_dfr
 #' @importFrom magrittr %>%
@@ -92,20 +92,25 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7) {
             
             # multiplex <- RandomWalkRestartMH::create.multiplex(L1 =
             # Xi,Layers_Name=layers_name)
-            multiplex <- RandomWalkRestartMH::create.multiplex(
+            #multiplex <- RandomWalkRestartMH::create.multiplex(
+            multiplex <- create.multiplex(
                 LayersList = list(L1 = Xi),
                 Layers_Name = layers_name
             )
-            adj_matrix <- RandomWalkRestartMH::compute.adjacency.matrix(
+            # adj_matrix <- RandomWalkRestartMH::compute.adjacency.matrix(
+            adj_matrix <- compute.adjacency.matrix(
                 x = multiplex, 
                 delta = delta)
             adj_matrix_norm <- 
-                RandomWalkRestartMH::normalize.multiplex.adjacency(
+               normalize.multiplex.adjacency(
+                # RandomWalkRestartMH::normalize.multiplex.adjacency(
                     x = adj_matrix)  # time/RAM consuming
             
             res_tmp <- list()
             for (seed_xi_i in seed_xi) {
-                rwr_res <- RandomWalkRestartMH::Random.Walk.Restart.Multiplex(
+                # rwr_res <- RandomWalkRestartMH::Random.Walk.Restart.Multiplex(
+                rwr_res <- Random.Walk.Restart.Multiplex(
+                    
                     x = adj_matrix_norm, 
                     MultiplexObject = multiplex, 
                     Seeds = seed_xi_i,
@@ -147,20 +152,24 @@ random_walk_restart <- function(X, seed = NULL, r = 0.7) {
         
         # multiplex <- RandomWalkRestartMH::create.multiplex(L1 =
         # Xi,Layers_Name=layers_name)
-        multiplex <- RandomWalkRestartMH::create.multiplex(
+        multiplex <- create.multiplex(
+          #RandomWalkRestartMH::create.multiplex(
             LayersList = list(L1 = Xi),
             Layers_Name = layers_name
         )
         
-        adj_matrix <- RandomWalkRestartMH::compute.adjacency.matrix(
+        adj_matrix <- compute.adjacency.matrix(
+          #RandomWalkRestartMH::compute.adjacency.matrix(
             x = multiplex, 
             delta = delta)
-        adj_matrix_norm <- RandomWalkRestartMH::normalize.multiplex.adjacency(
+        adj_matrix_norm <- normalize.multiplex.adjacency(
+          #RandomWalkRestartMH::normalize.multiplex.adjacency(
             x = adj_matrix)  # time/RAM consuming
         
         res_tmp <- list()
         for (seed_xi_i in seed_xi) {
-            rwr_res <- RandomWalkRestartMH::Random.Walk.Restart.Multiplex(
+            rwr_res <- Random.Walk.Restart.Multiplex(
+            #rwr_res <- RandomWalkRestartMH::Random.Walk.Restart.Multiplex(
                 x = adj_matrix_norm, 
                 MultiplexObject = multiplex, 
                 Seeds = seed_xi_i,

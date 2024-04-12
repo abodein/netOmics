@@ -1,6 +1,6 @@
 Package: netOmics
 Title: Multi-Omics (time-course) network-based integration and interpretation
-Version: 1.9.3
+Version: 1.9.4
 Authors@R: 
     person(given = "Antoine", family = "Bodein", role = c("aut", "cre"), email = "antoine.bodein.1@ulaval.ca")
 Description: netOmics is a multi-omics networks builder and explorer.
@@ -12,7 +12,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: false
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Depends: R (>= 4.1)
 Imports: 
@@ -26,9 +26,9 @@ Imports:
     tidyr, 
     AnnotationDbi, 
     GO.db, 
-    RandomWalkRestartMH, 
     gprofiler2,
     methods,
+    Matrix,
     stats
 Suggests: 
     mixOmics,
